@@ -1,0 +1,21 @@
+describe CategoryForm do
+
+  it { should validate_presence_of :name }
+  it { should ensure_length_of(:name).is_at_most(32) }
+  it { should ensure_inclusion_of(:transaction_type).in_array(TransactionType.numbers) }
+
+  describe '#transaction_type' do
+
+    it 'should have default value' do
+      expect(subject.transaction_type).to eq TransactionType[:expense]
+    end
+  end
+
+  describe '#transaction_type=' do
+
+    it 'should cast argument to number' do
+      subject.transaction_type = 'incom'
+      expect(subject.transaction_type).to eq TransactionType[:income]
+    end
+  end
+end

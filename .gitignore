@@ -1,0 +1,7 @@
+.idea
+bin
+
+database.yml
+log/*
+tmp/*
+*.db
