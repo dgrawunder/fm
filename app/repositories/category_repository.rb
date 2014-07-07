@@ -21,6 +21,10 @@ class CategoryRepository
     ActiveRecordMapper::Category.count
   end
 
+  def self.delete id
+    ActiveRecordMapper::Category.delete(id) == 1
+  end
+
   def self.find(id)
     record = ActiveRecordMapper::Category.find(id)
     entity = Category.new

@@ -33,7 +33,10 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.2.5)
     equalizer (0.0.9)
+    factory_girl (4.4.0)
+      activesupport (>= 3.0.0)
     ffi (1.9.3)
+    forgery (0.6.0)
     formatador (0.2.4)
     guard (2.6.1)
       formatador (>= 0.2.4)
@@ -96,6 +99,8 @@ DEPENDENCIES
   activerecord
   database_cleaner
   equalizer
+  factory_girl
+  forgery
   guard-rspec
   lift
   rake

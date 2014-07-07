@@ -1,4 +1,4 @@
 fm-domain
 =========
 
-Domain part of a Ruby based housekeeping software
+Domain part of a housekeeping software written in Ruby

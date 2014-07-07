@@ -1,9 +1,9 @@
 describe UpdateCategory do
 
   let(:category) do
-    category = Category.new(name: 'Category 1', transaction_type: TransactionType[:expense])
-    CategoryRepository.create(category)
+    create(:expense_category, name: 'Category 1')
   end
+
   let(:form) { CategoryForm.new name: 'Category 2', transaction_type: 'income' }
 
   subject { UpdateCategory.new(category.id, form) }

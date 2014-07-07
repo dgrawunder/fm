@@ -6,9 +6,7 @@ class CreateCategory
 
   def run!
     @form.validate!
-
-    category = Category.new(@form.attributes)
-    CategoryRepository.create(category)
+    Category.new(@form.attributes).save
   end
 
 end

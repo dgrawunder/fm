@@ -15,4 +15,6 @@ group :test do
   gem 'guard-rspec'
   gem 'shoulda-matchers'
   gem 'database_cleaner'
+  gem 'factory_girl'
+  gem 'forgery'
 end

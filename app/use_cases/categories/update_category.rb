@@ -12,7 +12,7 @@ class UpdateCategory
     @form.attributes.each do |attribute, value|
       category.public_send("#{attribute}=", value)
     end
-    CategoryRepository.update(category)
+    category.save
     category
   end
 end

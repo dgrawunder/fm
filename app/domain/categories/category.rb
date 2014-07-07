@@ -1,6 +1,4 @@
-class Category
-  include Lift
-  include Equalizer.new(:id)
+class Category < Model
 
-  attr_accessor :id, :name, :transaction_type
+  attr_accessor :name, :transaction_type
 end
