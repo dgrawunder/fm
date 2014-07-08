@@ -1,4 +1,4 @@
-ENV['FMC_ENV'] = 'test'
+ENV['FMD_ENV'] = 'test'
 
 require_relative '../app'
 

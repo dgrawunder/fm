@@ -12,7 +12,6 @@ describe CategoryForm do
 
     expect(subject.valid?).to be_false
     expect(subject.errors[:name]).to include I18n.t('errors.messages.taken')
-
   end
 
 

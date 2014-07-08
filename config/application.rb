@@ -1,8 +1,8 @@
-module Fmc
+module Fmd
 
   class << self
     def env
-      ENV.fetch 'FMC_ENV', 'development'
+      ENV.fetch 'FMD_ENV', 'development'
     end
   end
 

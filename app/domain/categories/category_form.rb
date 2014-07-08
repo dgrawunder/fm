@@ -1,6 +1,4 @@
-class CategoryForm
-  include Virtus.model
-  include ActiveModel::Validations
+class CategoryForm < Form
 
   attribute :name, String
   attribute :transaction_type, TransactionType, default: TransactionType[:expense]
@@ -11,9 +9,5 @@ class CategoryForm
     if CategoryRepository.exists_by_name_and_transaction_type?(form.name, form.transaction_type)
       errors.add :name, I18n.t('errors.messages.taken')
     end
-  end
-
-  def validate!
-    raise ValidationError, errors if !valid?
   end
 end

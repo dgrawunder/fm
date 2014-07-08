@@ -7,8 +7,9 @@ describe CreateCategory do
   it 'should create Category' do
     actual_category = subject.run!
 
-    persisted_category = CategoryRepository.find(actual_category.id)
+    expect(actual_category).to be_instance_of Category
 
+    persisted_category = CategoryRepository.find(actual_category.id)
     expect(persisted_category.name).to eq form.name
     expect(persisted_category.transaction_type).to eq TransactionType[:expense]
   end
