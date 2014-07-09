@@ -1,0 +1,2 @@
+class UpdateAccountingPeriod < UpdateEntity
+end

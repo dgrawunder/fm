@@ -1,4 +1,4 @@
-class Model
+class Entity
   include Lift
   include Equalizer.new(:id)
 

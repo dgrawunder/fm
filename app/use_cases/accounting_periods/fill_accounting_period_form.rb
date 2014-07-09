@@ -1,0 +1,2 @@
+class FillAccountingPeriodForm < FillEntityForm
+end
