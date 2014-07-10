@@ -39,6 +39,10 @@ module BaseRepository
       entity
     end
 
+    def exists?(id)
+      record_class.where(id: id).exists?
+    end
+
     private
 
     def copy_attributes_to_record(record, entity)

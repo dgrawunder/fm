@@ -1,0 +1,2 @@
+describe TransactionType do
+end

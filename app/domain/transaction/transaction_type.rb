@@ -8,15 +8,18 @@ class TransactionType < Virtus::Attribute
       receivable: 5
   }
 
-  def self.numbers
-    TYPES.values
-  end
-
-  def self.[] name
-    TYPES[name]
-  end
-
   def coerce(value)
     value.is_a?(Fixnum) ? value : TransactionTypeFinder.find_number(value)
+  end
+
+  class << self
+
+    def numbers
+      TYPES.values
+    end
+
+    def [] name
+      TYPES[name]
+    end
   end
 end

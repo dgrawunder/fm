@@ -9,6 +9,8 @@ require_relative 'app/domain/errors'
 require_relative 'app/domain/entity'
 require_relative 'app/domain/form'
 
+require_relative 'app/domain/util/date_parser'
+
 require_relative 'app/domain/accounting_period/accounting_period'
 require_relative 'app/domain/accounting_period/accounting_period_form'
 
@@ -19,6 +21,7 @@ require_relative 'app/repositories/category_repository'
 require_relative 'app/domain/transaction/transaction_type'
 require_relative 'app/domain/transaction/transaction'
 require_relative 'app/domain/transaction/transaction_type_finder'
+require_relative 'app/domain/transaction/transaction_form'
 
 require_relative 'app/domain/category/category'
 require_relative 'app/domain/category/category_form'
