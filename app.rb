@@ -17,6 +17,7 @@ require_relative 'app/domain/accounting_period/accounting_period_form'
 require_relative 'app/repositories/base_repository'
 require_relative 'app/repositories/accounting_period_repository'
 require_relative 'app/repositories/category_repository'
+require_relative 'app/repositories/transaction_repository'
 
 require_relative 'app/domain/transaction/transaction_type'
 require_relative 'app/domain/transaction/transaction'
@@ -38,6 +39,7 @@ require_relative 'app/use_cases/categories/create_category'
 require_relative 'app/use_cases/categories/update_category'
 require_relative 'app/use_cases/categories/delete_category'
 require_relative 'app/use_cases/categories/fill_category_form'
+require_relative 'app/use_cases/transactions/delete_transaction'
 
 require_relative 'db/initialize'
 

@@ -1,0 +1,2 @@
+class DeleteTransaction < DeleteEntity
+end

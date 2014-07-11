@@ -8,11 +8,29 @@ class ActiveRecordMapper
       [:name, :starts_at, :ends_at, :initial_deposit]
     end
   end
+
   class Category < ActiveRecord::Base
-    self.table_name = "categories"
 
     def self.mapped_attributes
       [:name, :transaction_type]
+    end
+  end
+
+  class Transaction < ActiveRecord::Base
+
+    def self.mapped_attributes
+      [
+          :accounting_period_id,
+          :category_id,
+          :description,
+          :amount,
+          :date,
+          :type,
+          :expected,
+          :fixed,
+          :template,
+          :day_of_month
+      ]
     end
   end
 end

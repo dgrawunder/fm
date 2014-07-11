@@ -7,6 +7,7 @@ class TransactionForm < Form
   attribute :date, Date
   attribute :expected, Boolean, default: false
   attribute :type, TransactionType, default: TransactionType[:expense]
+  attribute :fixed, Boolean, default: false
   attribute :template, Boolean, default: false
   attribute :day_of_month, Integer
 

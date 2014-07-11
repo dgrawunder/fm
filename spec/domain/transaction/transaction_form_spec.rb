@@ -84,6 +84,13 @@ describe TransactionForm do
     end
   end
 
+  describe '#fixed' do
+
+    it 'should have default value' do
+      expect(subject.fixed).to be_false
+    end
+  end
+
   describe '#template' do
 
     it 'should have default value' do
