@@ -17,6 +17,7 @@ class ActiveRecordMapper
   end
 
   class Transaction < ActiveRecord::Base
+    self.inheritance_column = 'not_used'
 
     def self.mapped_attributes
       [
