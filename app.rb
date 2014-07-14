@@ -41,7 +41,9 @@ require_relative 'app/use_cases/categories/update_category'
 require_relative 'app/use_cases/categories/delete_category'
 require_relative 'app/use_cases/categories/fill_category_form'
 require_relative 'app/use_cases/transactions/create_transaction'
+require_relative 'app/use_cases/transactions/update_transaction'
 require_relative 'app/use_cases/transactions/delete_transaction'
+require_relative 'app/use_cases/transactions/fill_transaction_form'
 
 require_relative 'db/initialize'
 

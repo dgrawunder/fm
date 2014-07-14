@@ -1,11 +1,14 @@
 class UpdateEntity
 
+  include EntityUseCaseHooks
+
   def initialize(id, form)
     @id = id
     @form = form
   end
 
   def run!
+    run_before_validation(@form)
     @form.validate!
 
     entity = repository.find(@id)

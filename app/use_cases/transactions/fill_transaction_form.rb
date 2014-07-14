@@ -1,0 +1,2 @@
+class FillTransactionForm < FillEntityForm
+end
