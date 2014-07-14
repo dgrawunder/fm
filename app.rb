@@ -11,13 +11,16 @@ require_relative 'app/domain/form'
 
 require_relative 'app/domain/util/date_parser'
 
-require_relative 'app/domain/accounting_period/accounting_period'
-require_relative 'app/domain/accounting_period/accounting_period_form'
-
 require_relative 'app/repositories/base_repository'
 require_relative 'app/repositories/accounting_period_repository'
 require_relative 'app/repositories/category_repository'
 require_relative 'app/repositories/transaction_repository'
+require_relative 'app/repositories/property_repository'
+
+require_relative 'app/domain/property/property'
+
+require_relative 'app/domain/accounting_period/accounting_period'
+require_relative 'app/domain/accounting_period/accounting_period_form'
 
 require_relative 'app/domain/transaction/transaction_type'
 require_relative 'app/domain/transaction/transaction'

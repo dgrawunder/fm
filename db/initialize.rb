@@ -34,4 +34,12 @@ class ActiveRecordMapper
       ]
     end
   end
+
+
+  class Property < ActiveRecord::Base
+
+    def self.mapped_attributes
+      [:key, :value]
+    end
+  end
 end
