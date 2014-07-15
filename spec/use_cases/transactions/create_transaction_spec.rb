@@ -5,7 +5,6 @@ describe CreateTransaction do
 
   let(:form) do
     TransactionForm.new(
-        accounting_period_id: accounting_period.id,
         category_id: category.id,
         description: 'Expense 1',
         amount: 20.3,
@@ -13,6 +12,10 @@ describe CreateTransaction do
         type: 'incom',
         expected: true
     )
+  end
+
+  before :each do
+    create(:current_accounting_period_id_property, value: accounting_period.id)
   end
 
   subject { CreateTransaction.new(form) }
@@ -31,10 +34,28 @@ describe CreateTransaction do
     expect(stored_transaction.expected).to be_true
   end
 
-  it 'should resolve AccountingPeriod-Id and Category-Id' do
-    form.accounting_period_id = nil
+  it 'should set id of current AccountingPeriod if transaction is not a template or receivable' do
+    actual_transaction = subject.run!
+    expect(actual_transaction.accounting_period_id).to eq accounting_period.id
+  end
+
+  it 'should not set id of current AccountingPeriod if transaction is a template' do
+    form.template = true
+    form.date = nil
+    form.day_of_month = 2
+    actual_transaction = subject.run!
+    expect(actual_transaction.accounting_period_id).to be_nil
+  end
+
+  it 'should not set id of current AccountingPeriod if transaction is a receivable' do
     form.category_id = nil
-    form.accounting_period_name = 'Period'
+    form.type = TransactionType[:receivable]
+    actual_transaction = subject.run!
+    expect(actual_transaction.accounting_period_id).to be_nil
+  end
+
+  it 'should resolve and Category-Id' do
+    form.category_id = nil
     form.category_name = 'Cat'
 
     actual_transaction = subject.run!
