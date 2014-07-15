@@ -32,11 +32,7 @@ module BaseRepository
     end
 
     def find(id)
-      record = record_class.find(id)
-      entity = entity_class.new
-      entity.id = id
-      copy_attributes_to_entity(entity, record)
-      entity
+      build_entity record_class.find(id)
     end
 
     def exists?(id)
@@ -54,9 +50,17 @@ module BaseRepository
     end
 
     def copy_attributes_to_entity(entity, record)
+      entity.id = record.id
       record.class.mapped_attributes.each do |attribute|
         entity.public_send("#{attribute}=", record.public_send(attribute))
       end
+    end
+
+    def build_entity record
+      entity = entity_class.new
+      entity.id = record.id
+      copy_attributes_to_entity entity, record
+      entity
     end
 
     def entity_class
