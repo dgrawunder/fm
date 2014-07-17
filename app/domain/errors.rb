@@ -13,3 +13,5 @@ class ValidationError < StandardError
     errors.as_json
   end
 end
+
+UnknownTransactionTypeError = Class.new StandardError

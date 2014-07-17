@@ -9,7 +9,7 @@ class TransactionType < Virtus::Attribute
   }
 
   def coerce(value)
-    value.is_a?(Fixnum) ? value : TransactionTypeFinder.find_number(value)
+    value.is_a?(Fixnum) ? value : self.class.find_number(value)
   end
 
   class << self
@@ -20,6 +20,20 @@ class TransactionType < Virtus::Attribute
 
     def [] name
       TYPES[name]
+    end
+
+    def find_number text
+      target_number = nil
+
+      if text.present?
+        TYPES.each do |transaction_type, number|
+          if transaction_type.to_s.match /^#{text}/
+            target_number = number
+            break
+          end
+        end
+      end
+      target_number
     end
   end
 end

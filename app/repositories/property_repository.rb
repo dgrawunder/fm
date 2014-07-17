@@ -15,5 +15,9 @@ class PropertyRepository
         record_class.create(key: key, value: value)
       end
     end
+
+    def find_current_accounting_period_id
+      find_value(Property::CURRENT_ACCOUNTING_PERIOD_ID)
+    end
   end
 end

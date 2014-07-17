@@ -29,4 +29,12 @@ describe PropertyRepository do
       expect(PropertyRepository.find_value('key 1')).to eq 'value 2'
     end
   end
+
+  describe '::find_current_accounting_period_id' do
+
+    it 'should return value current AccountingPeriodId' do
+      create(:current_accounting_period_id_property, value: 7)
+      expect(subject.find_current_accounting_period_id).to eq '7'
+    end
+  end
 end

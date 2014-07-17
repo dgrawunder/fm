@@ -19,6 +19,8 @@ class ActiveRecordMapper
   class Transaction < ActiveRecord::Base
     self.inheritance_column = 'not_used'
 
+    belongs_to :category
+
     def self.mapped_attributes
       [
           :accounting_period_id,
