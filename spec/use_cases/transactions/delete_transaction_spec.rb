@@ -5,7 +5,7 @@ describe DeleteTransaction do
   subject { DeleteTransaction.new transaction.id }
 
   it 'should delete Transaction of given id' do
-    subject.run!
+    subject.run
     expect(TransactionRepository.count).to eq 0
   end
 end

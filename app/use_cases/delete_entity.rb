@@ -4,7 +4,7 @@ class DeleteEntity
     @id = id
   end
 
-  def run!
+  def run
     repository.delete(@id)
   end
 

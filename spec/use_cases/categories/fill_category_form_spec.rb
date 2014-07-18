@@ -6,7 +6,7 @@ describe FillCategoryForm do
 
   it 'should return filled CategoryForm' do
 
-    actual_form = subject.run!
+    actual_form = subject.run
 
     expect(actual_form).to be_instance_of CategoryForm
     expect(actual_form.name).to eq category.name

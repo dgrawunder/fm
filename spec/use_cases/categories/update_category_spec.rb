@@ -10,7 +10,7 @@ describe UpdateCategory do
 
   it 'should update Category' do
 
-    actual_category = subject.run!
+    actual_category = subject.run
 
     expect(actual_category).to be_instance_of Category
     expect(actual_category.name).to eq form.name
@@ -21,7 +21,7 @@ describe UpdateCategory do
 
   it 'should throw ValidationError when given form is invalid' do
     form.name = nil
-    expect { subject.run! }.to raise_error ValidationError
+    expect { subject.run }.to raise_error ValidationError
 
     expect(CategoryRepository.find(category.id).name).to eq category.name
   end

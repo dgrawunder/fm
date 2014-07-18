@@ -1,10 +1,10 @@
-class ShowAllCurrentTransactions
+class ShowCurrentTransactions
 
   def initialize type_name
     @type_name = type_name
   end
 
-  def run!
+  def run
     type = TransactionType.find_number(@type_name)
     raise UnknownTransactionTypeError if type.nil? && @type_name.present?
 

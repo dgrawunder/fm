@@ -5,7 +5,7 @@ describe CreateCategory do
   subject { CreateCategory.new(form) }
 
   it 'should create Category' do
-    actual_category = subject.run!
+    actual_category = subject.run
 
     expect(actual_category).to be_instance_of Category
 
@@ -16,7 +16,7 @@ describe CreateCategory do
 
   it 'should throw ValidationError when given form is invalid' do
     form.name = nil
-    expect { subject.run! }.to raise_error ValidationError
+    expect { subject.run }.to raise_error ValidationError
     expect(CategoryRepository.count).to eq 0
   end
 end

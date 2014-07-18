@@ -21,7 +21,7 @@ describe UpdateTransaction do
   subject { UpdateTransaction.new(transaction.id, form) }
 
   it 'should update transaction' do
-    actual_transaction = subject.run!
+    actual_transaction = subject.run
 
     expect(actual_transaction).to be_instance_of Transaction
     expect(actual_transaction.description).to eq 'Description 1'
@@ -36,14 +36,14 @@ describe UpdateTransaction do
     form.accounting_period_name = 'Period'
     form.category_name = 'Cat'
 
-    actual_transaction = subject.run!
+    actual_transaction = subject.run
     expect(actual_transaction.accounting_period_id).to eq accounting_period.id
     expect(actual_transaction.category_id).to eq category.id
   end
 
   it 'should throw ValidationError when given form is invalid' do
     form.description = nil
-    expect { subject.run! }.to raise_error ValidationError
+    expect { subject.run }.to raise_error ValidationError
     expect( TransactionRepository.find(transaction.id).description).to eq transaction.description
   end
 

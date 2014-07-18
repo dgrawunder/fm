@@ -6,7 +6,7 @@ describe FillAccountingPeriodForm do
 
   it 'should return filled AccountingForm' do
 
-    actual_form = subject.run!
+    actual_form = subject.run
 
     expect(actual_form).to be_instance_of AccountingPeriodForm
     expect(actual_form.name).to eq accounting_period.name

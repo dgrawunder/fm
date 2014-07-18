@@ -10,7 +10,7 @@ describe UpdateAccountingPeriod do
 
   it 'should update AccountingPeriod' do
 
-    actual_accounting_period = subject.run!
+    actual_accounting_period = subject.run
 
     expect(actual_accounting_period.name).to eq form.name
 

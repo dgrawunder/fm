@@ -4,7 +4,7 @@ class FillEntityForm
     @id = id
   end
 
-  def run!
+  def run
     entity = repository.find(@id)
     form = form_class.new
     form_class.attribute_set.each do |attribute|

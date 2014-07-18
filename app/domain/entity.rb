@@ -1,6 +1,7 @@
 class Entity
   include Lift
   include Equalizer.new(:id)
+  include Associations
 
   attr_accessor :id
 

@@ -11,7 +11,7 @@ describe AccountingPeriod do
   subject { CreateAccountingPeriod.new(form) }
 
   it 'should create AccountingPeriod' do
-    actual_accounting_period = subject.run!
+    actual_accounting_period = subject.run
 
     expect(actual_accounting_period).to be_instance_of AccountingPeriod
 
@@ -24,7 +24,7 @@ describe AccountingPeriod do
 
   it 'should throw ValidationError when given form is invalid' do
     form.name = nil
-    expect { subject.run! }.to raise_error ValidationError
+    expect { subject.run }.to raise_error ValidationError
     expect(AccountingPeriodRepository.count).to eq 0
   end
 end

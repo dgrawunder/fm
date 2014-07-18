@@ -7,7 +7,7 @@ class UpdateEntity
     @form = form
   end
 
-  def run!
+  def run
     run_before_validation(@form)
     @form.validate!
 

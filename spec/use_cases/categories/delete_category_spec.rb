@@ -5,7 +5,7 @@ describe DeleteCategory do
   subject { DeleteCategory.new category.id }
 
   it 'should delete category of given id' do
-    subject.run!
+    subject.run
     expect(CategoryRepository.count).to eq 0
   end
 end

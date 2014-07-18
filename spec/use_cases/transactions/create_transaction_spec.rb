@@ -21,7 +21,7 @@ describe CreateTransaction do
   subject { CreateTransaction.new(form) }
 
   it 'should create Transaction' do
-    actual_transaction = subject.run!
+    actual_transaction = subject.run
     expect(actual_transaction).to be_instance_of Transaction
 
     stored_transaction = TransactionRepository.find(actual_transaction.id)
@@ -35,7 +35,7 @@ describe CreateTransaction do
   end
 
   it 'should set id of current AccountingPeriod if transaction is not a template or receivable' do
-    actual_transaction = subject.run!
+    actual_transaction = subject.run
     expect(actual_transaction.accounting_period_id).to eq accounting_period.id
   end
 
@@ -43,14 +43,14 @@ describe CreateTransaction do
     form.template = true
     form.date = nil
     form.day_of_month = 2
-    actual_transaction = subject.run!
+    actual_transaction = subject.run
     expect(actual_transaction.accounting_period_id).to be_nil
   end
 
   it 'should not set id of current AccountingPeriod if transaction is a receivable' do
     form.category_id = nil
     form.type = TransactionType[:receivable]
-    actual_transaction = subject.run!
+    actual_transaction = subject.run
     expect(actual_transaction.accounting_period_id).to be_nil
   end
 
@@ -58,14 +58,14 @@ describe CreateTransaction do
     form.category_id = nil
     form.category_name = 'Cat'
 
-    actual_transaction = subject.run!
+    actual_transaction = subject.run
     expect(actual_transaction.accounting_period_id).to eq accounting_period.id
     expect(actual_transaction.category_id).to eq category.id
   end
 
   it 'should throw ValidationError when given form is invalid' do
     form.description = nil
-    expect { subject.run! }.to raise_error ValidationError
+    expect { subject.run }.to raise_error ValidationError
     expect(TransactionRepository.count).to eq 0
   end
 

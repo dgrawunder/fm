@@ -45,9 +45,6 @@ module BaseRepository
       entity.id = record.id
       copy_attributes_to_entity(entity, record, included_associations)
       included_associations.each do |association|
-        entity.class_eval do
-          attr_accessor association
-        end
         # TODO cleanup
         repository = "#{association.to_s.capitalize}Repository".constantize
         entity.public_send("#{association}=", repository.build_entity(record.send(association)))
