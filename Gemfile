@@ -10,6 +10,9 @@ gem 'lift'
 gem 'virtus'
 gem 'equalizer'
 
+gem 'thor', require: false
+gem 'command_line_reporter', require: false
+
 group :test do
   gem 'rspec'
   gem 'guard-rspec'

@@ -1,4 +1,4 @@
-fm-domain
+fm
 =========
 
-Domain part of a housekeeping software written in Ruby
+fm stands for Finance Manager and is a housekeeping software written in Ruby.
