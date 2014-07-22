@@ -18,11 +18,15 @@ class TransactionType < Virtus::Attribute
       TYPES.values
     end
 
-    def [] name
+    def [](name)
       TYPES[name]
     end
 
-    def find_number text
+    def find_name(number)
+      TYPES.find { |key, value| value == number }.try(:first)
+    end
+
+    def find_number(text)
       target_number = nil
 
       if text.present?

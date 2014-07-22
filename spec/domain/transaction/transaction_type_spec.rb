@@ -1,8 +1,20 @@
 describe TransactionType do
 
+  subject { TransactionType }
+
+  describe '::find_name' do
+
+    it 'should return name for given number' do
+      expect(subject.find_name(4)).to eq :inpayment
+    end
+
+    it 'should return nil if no name found' do
+      expect(subject.find_name(1000)).to be_nil
+    end
+  end
+
   describe '::find_number' do
 
-    subject { TransactionType }
 
     it 'should return the number of the most matching Transaction-Type from the beginning of the word' do
       expect(subject.find_number('e')).to eq TransactionType[:expense]

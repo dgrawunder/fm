@@ -12,6 +12,7 @@ gem 'equalizer'
 
 gem 'thor', require: false
 gem 'command_line_reporter', require: false
+gem 'colorize'
 
 group :test do
   gem 'rspec'
