@@ -39,6 +39,10 @@ module BaseRepository
       record_class.where(id: id).exists?
     end
 
+    def first
+      record_class.first
+    end
+
     def build_entity record, included_associations=[]
       return if record.nil?
       entity = entity_class.new

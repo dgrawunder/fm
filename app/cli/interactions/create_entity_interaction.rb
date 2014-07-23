@@ -6,11 +6,11 @@ class CreateEntityInteraction < FmCli::Interaction
 
     begin
       entity = use_case_class(entity_name).new(form).run
-      print_success "Successfully created #{printable_entity_name} #{entity.id}"
-      send("print_#{entity_name.downcase}", entity)
+      io.print_success "Successfully created #{printable_entity_name} #{entity.id}"
+      io.send("print_#{entity_name.downcase}", entity)
     rescue ValidationError => e
-      print_failure "#{printable_entity_name} couldn't be created to following errors:"
-      print_form_errors(e.errors)
+      io.print_failure "#{printable_entity_name} couldn't be created to following errors:"
+      io.print_form_errors(e.errors)
     end
   end
 

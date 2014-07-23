@@ -1,5 +1,9 @@
 module FmCli
-  module Stdio
+  class Stdio
+
+    def initialize input, output
+      @input, @output = input, output
+    end
 
     include CommandLineReporter
     include CategoryOutput

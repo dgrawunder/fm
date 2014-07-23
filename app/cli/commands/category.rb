@@ -11,7 +11,8 @@ module FmCli
           transaction_type: options['transaction-type']
       )
 
-      CreateEntityInteraction.new(self, self).run(form, :category)
+      io = Stdio.new(self, self)
+      CreateEntityInteraction.new(io).run(form, :category)
     end
 
     # def update

@@ -1,15 +1,16 @@
 module FmCli
   class Interaction
 
-    include Stdio
-
-    def initialize(output, input)
-      @output, @input = output, input
+    def initialize(io)
+      @io = io
     end
 
     def run(*args)
       raise NotImplementedError
     end
 
+    private
+
+    attr_reader :io
   end
 end
