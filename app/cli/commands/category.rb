@@ -1,5 +1,5 @@
 module FmCli
-  class Category < Thor
+  class Category < FmCli::Command
     include CommandLineReporter
 
     desc 'add <name> [...OPTIONS]', 'Adds a category'
@@ -11,12 +11,21 @@ module FmCli
           transaction_type: options['transaction-type']
       )
 
-      io = Stdio.new(self, self)
-      CreateEntityInteraction.new(io).run(form, :category)
+      run_interaction(:create_entity, form, :category)
     end
 
-    # def update
-    # end
+
+    desc 'update <id> [...OPTIONS]', 'Adds a category'
+    method_option 'name', aliases: '-n'
+    method_option 'transaction-type', aliases: '-t'
+
+    def update(id)
+      attributes = {}
+      attributes[:name] = options[:name] if options[:name]
+      attributes[:transaction_type] = options['transaction-type'] if options['transaction-type']
+
+      run_interaction(:update_entity, id, attributes, :category)
+    end
 
     desc 'delete <id> [...OPTIONS]', 'Deletes a Category forevermore'
 

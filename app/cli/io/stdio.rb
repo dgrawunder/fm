@@ -22,7 +22,7 @@ module FmCli
       print message.colorize(:red)
     end
 
-    def print_form_errors(errors)
+    def print_errors(errors)
       print_blank_line
       errors.full_messages.each do |message|
         print message

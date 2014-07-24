@@ -7,6 +7,7 @@ class FillEntityForm
   def run
     entity = repository.find(@id)
     form = form_class.new
+    form.entity_id = entity.id
     form_class.attribute_set.each do |attribute|
       form.public_send("#{attribute.name}=", entity.public_send(attribute.name))
     end

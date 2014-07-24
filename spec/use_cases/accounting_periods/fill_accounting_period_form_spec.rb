@@ -9,6 +9,7 @@ describe FillAccountingPeriodForm do
     actual_form = subject.run
 
     expect(actual_form).to be_instance_of AccountingPeriodForm
+    expect(actual_form.entity_id).to eq accounting_period.id
     expect(actual_form.name).to eq accounting_period.name
     expect(actual_form.starts_at).to eq accounting_period.starts_at
     expect(actual_form.ends_at).to eq accounting_period.ends_at

@@ -32,11 +32,21 @@ module BaseRepository
     end
 
     def find(id)
-      build_entity record_class.find(id)
+      begin
+        build_entity record_class.find(id)
+      rescue
+        raise RecordNotFoundError, "Couldn't find #{entity_class.name} with 'id'=#{id}"
+      end
     end
 
-    def exists?(id)
-      record_class.where(id: id).exists?
+    def exists?(constraint={})
+      if constraint.blank?
+        record_class.exits?
+      elsif constraint.is_a?(Hash)
+        record_class.where(:constraint).exists?
+      else
+        record_class.exists?(constraint)
+      end
     end
 
     def first

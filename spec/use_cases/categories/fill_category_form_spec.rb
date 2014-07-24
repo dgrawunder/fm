@@ -9,6 +9,7 @@ describe FillCategoryForm do
     actual_form = subject.run
 
     expect(actual_form).to be_instance_of CategoryForm
+    expect(actual_form.entity_id).to eq category.id
     expect(actual_form.name).to eq category.name
     expect(actual_form.transaction_type).to eq category.transaction_type
   end

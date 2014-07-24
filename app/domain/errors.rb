@@ -15,3 +15,4 @@ class ValidationError < StandardError
 end
 
 UnknownTransactionTypeError = Class.new StandardError
+RecordNotFoundError = Class.new StandardError
