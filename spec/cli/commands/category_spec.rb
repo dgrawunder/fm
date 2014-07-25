@@ -52,4 +52,34 @@ describe FmCli::Category, type: :cli do
       run_command 'category', 'update', (category.id + 1).to_s, '-t', 'foo'
     end
   end
+
+  describe '#update' do
+
+    let(:category) { create(:category, name: 'Cat 1') }
+
+    before :each do
+      category
+    end
+
+    it 'should delete category when confirmed' do
+      expect_to_ask_yes_question answer: 'yes'
+      expect_to_print_success_message
+
+      run_command 'category', 'delete', category.id.to_s
+      expect(CategoryRepository.count).to eq 0
+    end
+
+    it 'should delete category when confirmed' do
+      expect_to_ask_yes_question answer: 'no'
+
+      run_command 'category', 'delete', category.id.to_s
+      expect(CategoryRepository.count).to eq 1
+    end
+
+    it 'should print error on invalid id' do
+      expect_to_print_failure_message
+
+      run_command 'category', 'delete', (category.id + 1).to_s
+    end
+  end
 end

@@ -43,7 +43,7 @@ module BaseRepository
       if constraint.blank?
         record_class.exits?
       elsif constraint.is_a?(Hash)
-        record_class.where(:constraint).exists?
+        record_class.where(constraint).exists?
       else
         record_class.exists?(constraint)
       end
@@ -64,6 +64,14 @@ module BaseRepository
         entity.public_send("#{association}=", repository.build_entity(record.send(association)))
       end
       entity
+    end
+
+    def unique?(id, scope)
+      query = record_class.where(scope)
+      if id.present?
+        query = query.where.not(id: id)
+      end
+      !query.exists?
     end
 
     private

@@ -5,23 +5,11 @@ describe CategoryForm do
   it { should ensure_inclusion_of(:transaction_type).in_array(TransactionType.numbers) }
 
   it 'should ensure that name is unique for given TransactionType on new' do
+    subject.entity_id = 3
     subject.name = 'Cate 1'
     subject.transaction_type = TransactionType[:income]
     expect(CategoryRepository).to(
-        receive(:exists?).with(name: subject.name, transaction_type: subject.transaction_type).and_return(true))
-
-    expect(subject.valid?).to be_false
-    expect(subject.errors[:name]).to include I18n.t('errors.messages.taken')
-  end
-
-  it 'should ensure that name is unique for given TransactionType except for the own id on update' do
-    subject.entity_id = 7
-    subject.name = 'Cate 1'
-    subject.transaction_type = TransactionType[:income]
-    expect(CategoryRepository).to receive(:exists?).
-            with(id: subject.entity_id,
-                 name: subject.name,
-                 transaction_type: subject.transaction_type).and_return(true)
+        receive(:unique?).with(3, name: subject.name, transaction_type: subject.transaction_type).and_return(false))
 
     expect(subject.valid?).to be_false
     expect(subject.errors[:name]).to include I18n.t('errors.messages.taken')

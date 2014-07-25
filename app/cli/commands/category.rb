@@ -27,10 +27,10 @@ module FmCli
       run_interaction(:update_entity, id, attributes, :category)
     end
 
-    desc 'delete <id> [...OPTIONS]', 'Deletes a Category forevermore'
+    desc 'delete <id>', 'Deletes a Category forevermore'
 
-    def delete
-      # category =
+    def delete(id)
+      run_interaction(:delete_entity, id, :category)
     end
 
   end

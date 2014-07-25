@@ -1,0 +1,2 @@
+class FindCategory < FindEntity
+end

@@ -12,6 +12,10 @@ module FmCli
       @output.say *args
     end
 
+    def answered_yes?(question)
+      @output.yes? question.colorize(:yellow) + ' (yes|No)'
+    end
+
     def print_success(message)
       print_blank_line
       print message.colorize(:green)

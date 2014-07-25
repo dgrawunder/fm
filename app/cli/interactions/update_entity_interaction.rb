@@ -19,7 +19,7 @@ module FmCli
         io.print_failure "#{printable_entity_name} couldn't be updated to following errors:"
         io.print_errors(e.errors)
       rescue RecordNotFoundError
-        io.print_failure "Couldn't found #{printable_entity_name} wit id='#{id}'"
+        io.print_failure "Couldn't find #{printable_entity_name} wit Id='#{id}'"
       end
 
     end
