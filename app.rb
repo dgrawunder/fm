@@ -1,7 +1,7 @@
-ENV['FMD_ENV'] ||= 'development'
+ENV['FM_ENV'] ||= 'development'
 
 require 'bundler/setup'
-Bundler.require(:default, ENV['FMD_ENV'])
+Bundler.require(:default, ENV['FM_ENV'])
 
 require_relative 'config/application'
 
@@ -30,6 +30,7 @@ require_relative 'app/domain/transaction/transaction_form'
 
 require_relative 'app/domain/category/category'
 require_relative 'app/domain/category/category_form'
+require_relative 'app/domain/category/category_search_form'
 
 require_relative 'app/use_cases/concerns/entity_use_case_hooks'
 require_relative 'app/use_cases/create_entity'
@@ -46,6 +47,7 @@ require_relative 'app/use_cases/categories/update_category'
 require_relative 'app/use_cases/categories/delete_category'
 require_relative 'app/use_cases/categories/fill_category_form'
 require_relative 'app/use_cases/categories/find_category'
+require_relative 'app/use_cases/categories/show_all_categories'
 require_relative 'app/use_cases/transactions/create_transaction'
 require_relative 'app/use_cases/transactions/update_transaction'
 require_relative 'app/use_cases/transactions/delete_transaction'

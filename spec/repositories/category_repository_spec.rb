@@ -20,25 +20,6 @@ describe CategoryRepository do
     end
   end
 
-
-  describe '::exists_by_name_and_transaction_type?' do
-
-    it 'should return true when Categories with given name and transaction_type exists' do
-      category = create(:expense_category, name: 'Category 1')
-      expect(subject.exists_by_name_and_transaction_type?(category.name, TransactionType[:expense])).to be_true
-    end
-
-    it 'should return false when Category with given name does not exist' do
-      category = create(:expense_category, name: 'Category 2')
-      expect(subject.exists_by_name_and_transaction_type?(category.name + 'new', TransactionType[:expense])).to be_false
-    end
-
-    it 'should return false when Category with given transaction_type does not exist' do
-      category = create(:expense_category, name: 'Category 1')
-      expect(subject.exists_by_name_and_transaction_type?(category.name, TransactionType[:income])).to be_false
-    end
-  end
-
   describe '::search_id_by_name_and_transaction_type' do
 
     context 'when Categories with given substring name and transaction_type exists' do
@@ -67,6 +48,25 @@ describe CategoryRepository do
         create(:expense_category, name: 'Category 1')
         expect(subject.search_id_by_name_and_transaction_type('gory 1', TransactionType[:income])).to be_nil
       end
+    end
+  end
+
+  describe '#search' do
+
+    it 'should return all Transaction if empty criteria given' do
+      create(:category)
+      create(:category)
+      criteria = CategorySearchForm.new
+      expect(subject.search(criteria).count).to eq 2
+    end
+
+    it 'should return all by given transaction_typ and sort' do
+      category_1 = create(:expense_category, name: 'Cat 2')
+      create(:income_category)
+      category_2 = create(:expense_category, name: 'Cat 1')
+
+      criteria = CategorySearchForm.new(transaction_type: TransactionType[:expense], sort: 'name asc')
+      expect(subject.search(criteria)).to eq [category_2, category_1]
     end
   end
 end

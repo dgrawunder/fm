@@ -6,7 +6,7 @@ module FmCli
     end
 
     include CommandLineReporter
-    include CategoryOutput
+    include CategoryIoHelper
 
     def print(*args)
       @output.say *args

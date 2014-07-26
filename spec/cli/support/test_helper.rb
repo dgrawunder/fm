@@ -16,8 +16,8 @@ module CliTestHelper
     expect_to_print :errors
   end
 
-  def expect_to_print subject
-    expect_any_instance_of(FmCli::Stdio).to receive("print_#{subject}")
+  def expect_to_print subject, &block
+    expect_any_instance_of(FmCli::Stdio).to receive("print_#{subject}", &block)
   end
 
   def expect_to_ask_yes_question(answer:)

@@ -1,4 +1,4 @@
-ENV['FMD_ENV'] = 'test'
+ENV['FM_ENV'] = 'test'
 
 require_relative '../app'
 require_relative 'cli/support/test_helper'

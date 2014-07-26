@@ -14,6 +14,13 @@ module FmCli
       run_interaction(:create_entity, form, :category)
     end
 
+    desc 'list [...OPTIONS]', 'Lists all categories of given transaction type'
+    method_option 'transaction-type', aliases: '-t', default: 'expense'
+
+    def list
+      run_interaction(:list_categories, options['transaction-type'])
+    end
+
 
     desc 'update <id> [...OPTIONS]', 'Adds a category'
     method_option 'name', aliases: '-n'

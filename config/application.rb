@@ -1,8 +1,8 @@
-module Fmd
+module Fm
 
   class << self
     def env
-      ENV.fetch 'FMD_ENV', 'development'
+      ENV.fetch 'FM_ENV', 'development'
     end
   end
 

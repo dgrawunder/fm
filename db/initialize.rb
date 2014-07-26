@@ -1,5 +1,7 @@
-ActiveRecord::Base.logger = Logger.new(File.open("#{__dir__}/../log/#{Fmd.env}.log", 'a'))
-ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: "#{__dir__}/#{Fmd.env}.db")
+unless Fm.env == 'test'
+  ActiveRecord::Base.logger = Logger.new(File.open("#{__dir__}/../log/#{Fm.env}.log", 'a'))
+end
+ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: "#{__dir__}/#{Fm.env}.db")
 
 class ActiveRecordMapper
   class AccountingPeriod < ActiveRecord::Base
@@ -10,6 +12,8 @@ class ActiveRecordMapper
   end
 
   class Category < ActiveRecord::Base
+
+    has_many :transactions, dependent: :nullify
 
     def self.mapped_attributes
       [:name, :transaction_type]

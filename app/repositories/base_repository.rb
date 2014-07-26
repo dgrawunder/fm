@@ -28,7 +28,7 @@ module BaseRepository
     end
 
     def delete id
-      record_class.delete(id) == 1
+      record_class.destroy(id) == 1
     end
 
     def find(id)
