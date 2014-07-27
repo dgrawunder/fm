@@ -15,7 +15,7 @@ module FmCli
         entity = update_entity_use_case_class(entity_name).new(id, form).run
 
         io.print_success "Successfully updated #{printable_entity_name}"
-        io.send("print_#{entity_name.downcase}", entity)
+        io.send("print_#{entity_identifier}", entity)
       rescue ValidationError => e
         io.print_failure "#{entity_name} couldn't be updated to following errors:"
         io.print_errors(e.errors)

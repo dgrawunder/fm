@@ -5,12 +5,12 @@ module FmCli
     method_option 'transaction-type', aliases: '-t', default: 'expense'
 
     def add(name)
-      form = CategoryForm.new(
+      attributes = {
           name: name,
           transaction_type: options['transaction-type']
-      )
+      }
 
-      run_interaction(:create_entity, form, :category)
+      run_interaction(:create_entity, attributes, :category)
     end
 
     desc 'list [...OPTIONS]', 'Lists all categories of given transaction type'
@@ -33,7 +33,7 @@ module FmCli
       run_interaction(:update_entity, id, attributes, :category)
     end
 
-    desc 'delete <id>', 'Deletes a Category forevermore'
+    desc 'delete <id>', 'Deletes a category forevermore'
 
     def delete(id)
       run_interaction(:delete_entity, id, :category)

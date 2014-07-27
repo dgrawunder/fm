@@ -9,7 +9,7 @@ module FmCli
       begin
         entity = find_entity_use_case_class(entity_name).new(id).run
         io.print "Requested to delete #{printable_entity_name}:"
-        io.send("print_#{entity_name.downcase}", entity)
+        io.send("print_#{entity_identifier}", entity)
 
         if io.answered_yes?("Should delete?")
           delete_entity_use_case_class(entity_name).new(id).run

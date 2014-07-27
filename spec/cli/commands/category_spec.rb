@@ -75,7 +75,7 @@ describe FmCli::Category, type: :cli do
 
   describe '#delete' do
 
-    let(:category) { create(:category, name: 'Cat 1') }
+    let(:category) { create(:category) }
 
     before :each do
       category

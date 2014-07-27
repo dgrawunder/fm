@@ -1,0 +1,2 @@
+class FindAccountingPeriod < FindEntity
+end
