@@ -1,4 +1,4 @@
-describe ShowAllCategories do
+describe FindAllCategories do
 
   let(:categories) {
     [
@@ -9,7 +9,7 @@ describe ShowAllCategories do
     ]
   }
 
-  subject { ShowAllCategories.new }
+  subject { FindAllCategories.new }
 
   before :each do
     categories
@@ -20,12 +20,12 @@ describe ShowAllCategories do
   end
 
   it 'should return only of certain TransactionType if transaction_type_name given' do
-    subject = ShowAllCategories.new('exp')
+    subject = FindAllCategories.new('exp')
     expect(subject.run).to eq [categories.third, categories.fourth, categories.first]
   end
 
   it 'should throw UnknownTransactionType if invalid transaction_type_name given' do
-    subject = ShowAllCategories.new('foo')
+    subject = FindAllCategories.new('foo')
     expect { subject.run }.to raise_error UnknownTransactionTypeError
   end
 end

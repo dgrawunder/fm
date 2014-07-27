@@ -21,6 +21,20 @@ describe FmCli::AccountingPeriod, type: :cli do
     end
   end
 
+  describe '#list' do
+
+    it 'should list accounting_periods' do
+      accounting_periods = [
+          create(:accounting_period, starts_at: 3.days.ago),
+          create(:accounting_period, starts_at: 1.day.ago),
+          create(:accounting_period, starts_at: 2.days.ago)
+      ]
+      expect_to_print :accounting_periods do |actual_accounting_periods|
+        expect(actual_accounting_periods).to eq [accounting_periods.second, accounting_periods.third, accounting_periods.first]
+      end
+      run_command 'aperiod', 'list'
+    end
+  end
 
   describe '#update' do
 

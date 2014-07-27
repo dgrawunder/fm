@@ -1,4 +1,4 @@
-class ShowAllCategories
+class FindAllCategories
 
   def initialize(transaction_type_name=nil)
     @transaction_type_name = transaction_type_name

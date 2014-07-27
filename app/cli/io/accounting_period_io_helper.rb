@@ -20,25 +20,31 @@ module FmCli
           column(accounting_period.ends_at)
         end
         row do
-          column('INITIAL_DEPOSIT')
+          column('INITIAL DEPOSIT')
           column(accounting_period.initial_deposit)
         end
       end
     end
 
     def print_accounting_periods(accounting_periods)
-      # table(:border => false) do
-      #   row do
-      #     column('ID', :width => 6, :align => 'right')
-      #     column('NAME', :width => 20)
-      #   end
-      #   accounting_periods.each do |accounting_period|
-      #     row do
-      #       column(accounting_period.id)
-      #       column(accounting_period.name)
-      #     end
-      #   end
-      # end
+      table(:border => false) do
+        row do
+          column('ID', :width => 6, :align => 'right')
+          column('NAME', :width => 25)
+          column('STARTS AT', :width => 15)
+          column('ENDS AT', :width => 15)
+          column('INITIAL DEPOSIT', :width => 20, :align => 'right')
+        end
+        accounting_periods.each do |accounting_period|
+          row do
+            column(accounting_period.id)
+            column(accounting_period.name)
+            column(accounting_period.starts_at)
+            column(accounting_period.ends_at)
+            column(accounting_period.initial_deposit)
+          end
+        end
+      end
     end
   end
 end

@@ -17,6 +17,12 @@ module FmCli
       run_interaction(:create_entity, attributes, :accounting_period)
     end
 
+    desc 'list', 'Lists all accounting periods'
+
+    def list
+      run_interaction(:list_accounting_periods)
+    end
+
     desc 'update <id> [...OPTIONS]', 'Adds an accounting period'
     method_option '--name', aliases: '-n'
     shared_entity_options

@@ -15,5 +15,9 @@ class AccountingPeriodRepository
     def search_id_by_name(search)
       record_class.where("name like ?", "%#{search}%").pluck(:id).first
     end
+
+    def all_ordered_by_starts_at_desc
+      run_query record_class.order(starts_at: :desc)
+    end
   end
 end

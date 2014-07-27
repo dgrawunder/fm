@@ -40,4 +40,15 @@ describe AccountingPeriodRepository do
       expect(subject.search_id_by_name('riod 1')).to be_nil
     end
   end
+
+  describe '#all_ordered_by_starts_at' do
+
+    it 'should return all ordered by starts_at desc' do
+      accounting_period_3 = create(:accounting_period, starts_at: 3.days.ago)
+      accounting_period_1 = create(:accounting_period, starts_at: 1.day.ago)
+      accounting_period_2 = create(:accounting_period, starts_at: 2.days.ago)
+
+      expect(subject.all_ordered_by_starts_at_desc).to eq [accounting_period_1, accounting_period_2, accounting_period_3]
+    end
+  end
 end
