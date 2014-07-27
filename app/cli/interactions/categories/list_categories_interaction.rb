@@ -7,7 +7,6 @@ module FmCli
         io.print_categories(categories)
       rescue UnknownTransactionTypeError
         io.print_failure "Invalid transaction type '#{transaction_type_name}'"
-        io.print_blank_line
       end
     end
   end

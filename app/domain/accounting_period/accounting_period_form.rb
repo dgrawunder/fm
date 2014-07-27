@@ -1,8 +1,8 @@
 class AccountingPeriodForm < Form
 
   attribute :name, String
-  attribute :starts_at, Date
-  attribute :ends_at, Date
+  attribute :starts_at, Date, default: lambda { |form, starts_at| form.starts_at = Date.today }
+  attribute :ends_at, Date, default: lambda { |form, ends_at| form.ends_at = Date.today + 30.days }
   attribute :initial_deposit, BigDecimal, default: BigDecimal.new(0)
 
   validates :name, presence: true, length: {maximum: 32}

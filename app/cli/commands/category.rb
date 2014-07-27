@@ -1,6 +1,5 @@
 module FmCli
   class Category < FmCli::Command
-    include CommandLineReporter
 
     desc 'add <name> [...OPTIONS]', 'Adds a category'
     method_option 'transaction-type', aliases: '-t', default: 'expense'

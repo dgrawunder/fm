@@ -1,15 +1,16 @@
 module FmCli
   class CreateEntityInteraction < FmCli::EntityInteraction
 
-    def run(form, entity_name)
+    def run(form, entity_identifier)
 
-      printable_entity_name = printable_entity_name(entity_name)
+      entity_name = entity_name(entity_identifier)
+      printable_entity_name = printable_entity_name(entity_identifier)
 
       begin
 
         entity = use_case_class(entity_name).new(form).run
-        io.print_success "Successfully created #{printable_entity_name} #{entity.id}"
-        io.send("print_#{entity_name.downcase}", entity)
+        io.print_success "Successfully created #{printable_entity_name}"
+        io.send("print_#{entity_identifier.downcase}", entity)
 
       rescue ValidationError => e
 
@@ -21,7 +22,7 @@ module FmCli
     private
 
     def use_case_class(entity_name)
-      "Create#{entity_name.capitalize}".constantize
+      "Create#{entity_name}".constantize
     end
   end
 end
