@@ -2,6 +2,7 @@ require 'thor'
 require 'command_line_reporter'
 
 
+require_relative 'io/format_helpers'
 require_relative 'io/accounting_period_io_helper'
 require_relative 'io/category_io_helper'
 require_relative 'io/stdio'
