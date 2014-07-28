@@ -13,15 +13,15 @@ module FmCli
         end
         row do
           column('STARTS AT')
-          column(accounting_period.starts_at)
+          column(format_date accounting_period.starts_at)
         end
         row do
           column('ENDS AT')
-          column(accounting_period.ends_at)
+          column(format_date accounting_period.ends_at)
         end
         row do
           column('INITIAL DEPOSIT')
-          column(accounting_period.initial_deposit)
+          column(format_currency accounting_period.initial_deposit)
         end
       end
     end

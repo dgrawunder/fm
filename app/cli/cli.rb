@@ -1,5 +1,7 @@
 module FmCli
-  class Cli < Thor
+  class Cli < FmCli::Command
+
+    include Transaction
 
     desc 'aperiod SUBCOMMAND ...ARGS', 'Manage accounting periods'
     subcommand "aperiod", FmCli::AccountingPeriod

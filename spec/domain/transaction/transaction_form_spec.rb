@@ -77,6 +77,15 @@ describe TransactionForm do
     end
   end
 
+  describe '#date' do
+
+    it 'should have default value of current date' do
+      current_date = Date.new(2014, 02, 12)
+      allow(Date).to receive(:today).and_return(current_date)
+      expect(subject.date).to eq current_date
+    end
+  end
+
   describe '#expected' do
 
     it 'should have default value' do

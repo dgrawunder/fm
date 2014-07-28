@@ -4,7 +4,7 @@ class TransactionForm < Form
   attribute :category_id, Integer
   attribute :description, String
   attribute :amount, BigDecimal
-  attribute :date, Date
+  attribute :date, Date, default: lambda { |form, date| form.date = Date.today }
   attribute :expected, Boolean, default: false
   attribute :type, TransactionType, default: TransactionType[:expense]
   attribute :fixed, Boolean, default: false

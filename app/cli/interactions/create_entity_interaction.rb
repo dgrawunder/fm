@@ -16,6 +16,7 @@ module FmCli
       rescue ValidationError => e
 
         io.print_failure "#{printable_entity_name.capitalize} couldn't be created to following errors:"
+        io.print_blank_line
         io.print_errors(e.errors)
       end
     end
