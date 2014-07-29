@@ -10,7 +10,7 @@ module Associations
       class_eval <<-CODE, __FILE__, __LINE__ + 1
         def #{entity_name}
           @#{entity_name} ||= begin
-            repository.find(self.#{entity_name}_id) if self.#{entity_name}_id.present?
+            #{entity_name.to_s.camelcase}Repository.find(self.#{entity_name}_id) if self.#{entity_name}_id.present?
           end
         end
 

@@ -8,6 +8,7 @@ module FmCli
     include CommandLineReporter
     include AccountingPeriodIoHelper
     include CategoryIoHelper
+    include TransactionIoHelper
     include FormatHelpers
 
     def print(*args)

@@ -50,7 +50,7 @@ module BaseRepository
     end
 
     def first
-      record_class.first
+      build_entity record_class.first
     end
 
     def build_entity record, included_associations=[]
