@@ -45,10 +45,6 @@ describe FmCli::Category, type: :cli do
 
     let(:category) { create(:category, name: 'Cat 1') }
 
-    before :each do
-      category
-    end
-
     it 'should update category' do
 
       expect_to_print_success_message
@@ -77,11 +73,7 @@ describe FmCli::Category, type: :cli do
 
     let(:category) { create(:category) }
 
-    before :each do
-      category
-    end
-
-    it 'should delete category when confirmed' do
+    it 'should delete Category when confirmed' do
       expect_to_ask_yes_question answer: 'yes'
       expect_to_print_success_message
 
@@ -89,7 +81,7 @@ describe FmCli::Category, type: :cli do
       expect(CategoryRepository.count).to eq 0
     end
 
-    it 'should delete category when confirmed' do
+    it 'should not delete Category when not confirmed' do
       expect_to_ask_yes_question answer: 'no'
 
       run_command 'category', 'delete', category.id.to_s

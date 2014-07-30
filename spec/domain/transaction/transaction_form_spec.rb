@@ -69,6 +69,14 @@ describe TransactionForm do
     end
   end
 
+  describe '#accounting_period_id' do
+
+    it 'should have default value of current AccountingPeriod-Id' do
+      allow(PropertyRepository).to receive(:find_current_accounting_period_id).and_return('5')
+      expect(subject.accounting_period_id).to eq 5
+    end
+  end
+
   describe '#date=' do
 
     it 'should parse to date' do

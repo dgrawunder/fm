@@ -40,10 +40,6 @@ describe FmCli::AccountingPeriod, type: :cli do
 
     let(:accounting_period) { create(:accounting_period, name: 'Period 1') }
 
-    before :each do
-      accounting_period
-    end
-
     it 'should update AccountingPeriod' do
 
       expect_to_print_success_message
@@ -72,11 +68,7 @@ describe FmCli::AccountingPeriod, type: :cli do
 
     let(:accounting_period) { create(:accounting_period) }
 
-    before :each do
-      accounting_period
-    end
-
-    it 'should delete accounting_period when confirmed' do
+    it 'should delete AccountingPeriod when confirmed' do
       expect_to_ask_yes_question answer: 'yes'
       expect_to_print_success_message
 
@@ -84,7 +76,7 @@ describe FmCli::AccountingPeriod, type: :cli do
       expect(AccountingPeriodRepository.count).to eq 0
     end
 
-    it 'should delete category when confirmed' do
+    it 'should delete AccountingPeriod when not confirmed' do
       expect_to_ask_yes_question answer: 'no'
 
       run_command 'aperiod', 'delete', accounting_period.id.to_s

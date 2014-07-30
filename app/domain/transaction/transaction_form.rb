@@ -1,10 +1,10 @@
 class TransactionForm < Form
 
-  attribute :accounting_period_id, Integer
+  attribute :accounting_period_id, Integer, default: lambda { |form, attribute| PropertyRepository.find_current_accounting_period_id }
   attribute :category_id, Integer
   attribute :description, String
   attribute :amount, BigDecimal
-  attribute :date, Date, default: lambda { |form, date| form.date = Date.today }
+  attribute :date, Date, default: lambda { |form, attribute| Date.today }
   attribute :expected, Boolean, default: false
   attribute :type, TransactionType, default: TransactionType[:expense]
   attribute :fixed, Boolean, default: false
