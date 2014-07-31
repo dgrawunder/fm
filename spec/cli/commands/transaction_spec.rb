@@ -41,10 +41,37 @@ describe FmCli::Transaction, type: :cli do
     end
   end
 
+  describe '#update' do
+
+    let(:transaction) { create(:expense, description: 'desc 1', accounting_period_id: create(:accounting_period).id) }
+
+    it 'should update category' do
+
+      expect_to_print_success_message
+      expect_to_print :transaction
+
+      run_command 'update', transaction.id.to_s, '-d', 'desc 2'
+      expect(TransactionRepository.first.description).to eq 'desc 2'
+    end
+
+    it 'should print error on invalid input' do
+      expect_to_print_failure_message
+      expect_to_print_errors
+
+      run_command 'update', transaction.id.to_s, '-d', ''
+      expect(TransactionRepository.first.description).to eq 'desc 1'
+    end
+
+    it 'should print error on invalid id' do
+      expect_to_print_failure_message
+
+      run_command 'update', (transaction.id + 1).to_s, '-d', 'desc 2'
+    end
+  end
+
   describe '#delete' do
 
     let(:transaction) { create(:expense) }
-
 
     it 'should delete Transaction when confirmed' do
       expect_to_ask_yes_question answer: 'yes'

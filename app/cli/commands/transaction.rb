@@ -21,6 +21,16 @@ module FmCli
           run_interaction(:create_entity, attributes, :transaction)
         end
 
+        desc 'update <id> [...OPTIONS]', 'updates a transaction'
+        common_create_and_update_options
+
+        def update(id)
+          attributes = {}
+          fill_attributes_with_common_create_and_update_options(attributes, options)
+
+          run_interaction(:update_entity, id, attributes, :transaction)
+        end
+
         desc 'delete <id>', 'Deletes a transaction forevermore'
 
         def delete(id)
