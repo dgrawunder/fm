@@ -1,4 +1,4 @@
-class AccountingPeriodForm < Form
+class AccountingPeriodForm < EntityForm
 
   attribute :name, String
   attribute :starts_at, Date, default: lambda { |form, starts_at| form.starts_at = Date.today }

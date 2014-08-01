@@ -1,4 +1,4 @@
-class TransactionForm < Form
+class TransactionForm < EntityForm
 
   attribute :accounting_period_id, Integer, default: lambda { |form, attribute| PropertyRepository.find_current_accounting_period_id }
   attribute :category_id, Integer

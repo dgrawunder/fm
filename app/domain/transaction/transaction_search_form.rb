@@ -1,9 +1,7 @@
-class TransactionSearchForm
+class TransactionSearchForm < Form
 
-  include Lift
-
-  attr_accessor :accounting_period_id
-  attr_accessor :type
-  attr_accessor :sort
+  attribute :accounting_period_id, Integer
+  attribute :type, TransactionType
+  attribute :sort
 
 end

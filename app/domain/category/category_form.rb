@@ -1,4 +1,4 @@
-class CategoryForm < Form
+class CategoryForm < EntityForm
 
   attribute :name, String
   attribute :transaction_type, TransactionType, default: TransactionType[:expense]

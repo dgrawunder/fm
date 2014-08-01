@@ -1,4 +1,4 @@
-describe ShowCurrentTransactions do
+describe SearchCurrentTransactions do
 
   let(:current_accounting_period_id) { 7 }
   let(:type_name) { 'exp' }
@@ -13,16 +13,16 @@ describe ShowCurrentTransactions do
         create(:receivable, date: 2.days.ago)
     ]
   end
+  let(:form) { TransactionSearchForm.new(type: type_name) }
 
-  subject { ShowCurrentTransactions.new type_name }
+  subject { SearchCurrentTransactions.new form }
 
   before :each do
     create(:current_accounting_period_id_property, value: 7)
     transactions
   end
 
-  it 'should return all transactions of given partial type_name sorted by date desc' do
-
+  it 'should return all transactions matches given search and belong to current accounting period and order them by date desc when form has no sort' do
     actual_transactions = subject.run
     expect(actual_transactions).to eq [transactions.second, transactions.third, transactions.first]
   end
@@ -33,15 +33,6 @@ describe ShowCurrentTransactions do
 
     it 'should return all' do
       expect(subject.run).to eq [transactions[5], transactions[6]]
-    end
-  end
-
-  context 'when type_name is could not found' do
-
-    let(:type_name) { 'foo' }
-
-    it 'should throw UnknownTransactionType' do
-      expect { subject.run }.to raise_error UnknownTransactionTypeError
     end
   end
 end

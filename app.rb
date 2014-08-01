@@ -9,6 +9,7 @@ require_relative 'app/domain/errors'
 require_relative 'app/domain/associations'
 require_relative 'app/domain/entity'
 require_relative 'app/domain/form'
+require_relative 'app/domain/entity_form'
 
 require_relative 'app/domain/util/date_parser'
 
@@ -55,7 +56,8 @@ require_relative 'app/use_cases/transactions/update_transaction'
 require_relative 'app/use_cases/transactions/delete_transaction'
 require_relative 'app/use_cases/transactions/find_transaction'
 require_relative 'app/use_cases/transactions/fill_transaction_form'
-require_relative 'app/use_cases/transactions/show_current_transactions'
+require_relative 'app/use_cases/transactions/search_transactions'
+require_relative 'app/use_cases/transactions/search_current_transactions'
 
 require_relative 'db/initialize'
 
