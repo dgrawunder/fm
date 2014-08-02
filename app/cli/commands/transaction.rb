@@ -40,12 +40,16 @@ module FmCli
         TransactionType::TYPES.each do |type_name, type_number|
           desc "#{type_name}", "Shows all #{type_name.to_s.pluralize}"
           method_option 'accounting-period', aliases: '-p'
+          method_option :templates, aliases: '-t', type: :boolean, default: false
 
           define_method type_name.to_s.pluralize do
             attributes = {
-                type: type_number
+                type: type_number,
+                template: options[:templates]
             }
-            attributes[:accounting_period_name] = options['accounting-period'] if options['accounting-period']
+            unless options[:templates]
+              attributes[:accounting_period_name] = options['accounting-period'] if options['accounting-period']
+            end
             run_interaction(:list_transaction, attributes)
           end
         end

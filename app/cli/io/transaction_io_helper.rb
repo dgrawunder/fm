@@ -35,18 +35,24 @@ module FmCli
     end
 
     def print_transactions(transactions)
-      # table(:border => false) do
-      #   row do
-      #     column('ID', :width => 6, :align => 'right')
-      #     column('NAME', :width => 20)
-      #   end
-      #   transactions.each do |transaction|
-      #     row do
-      #       column(transaction.id)
-      #       column(transaction.name)
-      #     end
-      #   end
-      # end
+      table(:border => false) do
+        row do
+          column('ID', :width => 6, :align => 'right')
+          column('CATEGORY', :width => 25)
+          column('DESCRIPTION', :width => 30)
+          column('AMOUNT')
+          column('DATE')
+        end
+        transactions.each do |transaction|
+          row do
+            column(transaction.id)
+            column(transaction.category.try(:name))
+            column(transaction.description)
+            column(format_currency transaction.amount)
+            column(format_date transaction.date)
+          end
+        end
+      end
     end
   end
 end
