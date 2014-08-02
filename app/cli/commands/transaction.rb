@@ -37,6 +37,19 @@ module FmCli
           run_interaction(:delete_entity, id, :transaction)
         end
 
+        TransactionType::TYPES.each do |type_name, type_number|
+          desc "#{type_name}", "Shows all #{type_name.to_s.pluralize}"
+          method_option 'accounting-period', aliases: '-p'
+
+          define_method type_name.to_s.pluralize do
+            attributes = {
+                type: type_number
+            }
+            attributes[:accounting_period_name] = options['accounting-period'] if options['accounting-period']
+            run_interaction(:list_transaction, attributes)
+          end
+        end
+
         private
 
         def fill_attributes_with_common_create_and_update_options(attributes, options)

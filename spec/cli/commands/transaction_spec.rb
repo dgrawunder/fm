@@ -3,19 +3,19 @@ require 'cli_spec_helper'
 describe FmCli::Transaction, type: :cli do
 
   let(:accounting_period_1) { create(:accounting_period, name: 'Accounting Period 1') }
-  let(:accounting_period_2) { create(:accounting_period, name: 'Accounting Period 2') }
+  let(:current_accounting_period) { create(:accounting_period, name: 'Accounting Period 2') }
   let(:category) { create(:income_category, name: 'Category 1') }
 
   before :each do
     accounting_period_1
-    accounting_period_2
-    category
-    create(:current_accounting_period_id_property, value: accounting_period_2.id)
+    current_accounting_period
+    create(:current_accounting_period_id_property, value: current_accounting_period.id)
   end
 
   describe '#add' do
 
     it 'should create transaction belonging to given AccountingPeriod and Category' do
+      category
       expect_to_print_success_message
       expect_to_print :transaction
 
@@ -93,5 +93,37 @@ describe FmCli::Transaction, type: :cli do
 
       run_command 'delete', (transaction.id + 1).to_s
     end
+  end
+
+  describe '#expenses' do
+
+    let(:transactions) do
+      [
+          create(:expense, accounting_period_id: current_accounting_period.id, date: 2.days.ago),
+          create(:expense, accounting_period_id: current_accounting_period.id, date: 1.days.ago),
+          create(:expense, accounting_period_id: accounting_period_1.id, date: 2.days.ago),
+          create(:expense, accounting_period_id: accounting_period_1.id, date: 1.days.ago),
+          create(:income, accounting_period_id: current_accounting_period.id),
+          create(:income, accounting_period_id: current_accounting_period.id),
+      ]
+    end
+
+    before :each do
+      transactions
+    end
+
+    it 'should return all current expenses' do
+      expect_to_print :transactions do |actual_transactions|
+        expect(actual_transactions).to eq [transactions.second, transactions.first]
+      end
+      run_command 'expenses'
+    end
+    #
+    # it 'should return all expenses of AccountingPeriod if present' do
+    #   expect_to_print :transactions do |actual_transactions|
+    #     expect(actual_transactions).to eq [transactions.fourth, transactions.third]
+    #   end
+    #   run_command 'expenses', '-p', 'Accounting Period 1'
+    # end
   end
 end
