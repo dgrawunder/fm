@@ -8,7 +8,11 @@ describe SearchTransactions do
         create(:expense, date: 2.days.ago),
         create(:income),
         create(:receivable, date: 1.day.ago),
-        create(:receivable, date: 2.days.ago)
+        create(:receivable, date: 2.days.ago),
+        create(:expense, day_of_month: 3, template: true),
+        create(:expense, day_of_month: 1, template: true),
+        create(:expense, day_of_month: 2, template: true),
+        create(:income, template: true)
     ]
   end
   let(:form) { TransactionSearchForm.new(type: type_name) }
@@ -19,21 +23,35 @@ describe SearchTransactions do
     transactions
   end
 
-  it 'should return all transactions matches given search and order them by date desc when form has no sort' do
-    expect(subject.run).to eq [transactions.second, transactions.third, transactions.first]
+  context 'no templates' do
+
+    before :each do
+      form.template = false
+    end
+
+    it 'should return all transactions matches given search and order them by date desc when form has no sort' do
+      expect(subject.run).to eq [transactions.second, transactions.third, transactions.first]
+    end
+
+    it 'should order transaction by form.sort when present' do
+      form.sort = :id
+      expect(subject.run).to eq [transactions.first, transactions.second, transactions.third]
+    end
   end
 
-  it 'should order transaction by form.sort when present' do
-    form.sort = :id
-    expect(subject.run).to eq [transactions.first, transactions.second, transactions.third]
-  end
+  context 'only templates' do
 
-  # context 'when receivables are requested' do
-  #
-  #   let(:type_name) { 'recei' }
-  #
-  #   it 'should return all' do
-  #     expect(subject.run).to eq [transactions[5], transactions[6]]
-  #   end
-  # end
+    before :each do
+      form.template = true
+    end
+
+    it 'should return all templates matches given search and order them by date desc when form has no sort' do
+      expect(subject.run).to eq [transactions[7], transactions[8], transactions[6]]
+    end
+
+    it 'should order templates by form.sort when present' do
+      form.sort = :id
+      expect(subject.run).to eq [transactions[6], transactions[7], transactions[8]]
+    end
+  end
 end

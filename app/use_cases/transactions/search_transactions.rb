@@ -5,7 +5,13 @@ class SearchTransactions
   end
 
   def run
-    @form.sort = 'date desc' if @form.sort.nil?
+    if @form.sort.nil?
+      if @form.template?
+        @form.sort = 'day_of_month asc'
+      else
+        @form.sort = 'date desc'
+      end
+    end
     TransactionRepository.search(@form, include: :category)
   end
 end

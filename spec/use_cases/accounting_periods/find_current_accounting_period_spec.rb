@@ -2,11 +2,12 @@ describe FindCurrentAccountingPeriod do
 
   let(:current_accounting_period) { create(:accounting_period) }
 
-  before :each do
-    create(:current_accounting_period_id_property, key: current_accounting_period.id)
+  it 'should return current AccountingPeriod' do
+    create(:current_accounting_period_id_property, value: current_accounting_period.id)
+    expect(subject.run).to eq current_accounting_period
   end
 
-  # it 'should return current AccountingPeriod' do
-  #   expect(subject.run).to eq current_accounting_period
-  # end
+  it 'should throw RecordNotFoundError of no current AccountingPeriod exists' do
+    expect { subject.run }.to raise_error RecordNotFoundError
+  end
 end
