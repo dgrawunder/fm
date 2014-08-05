@@ -11,6 +11,7 @@ module FmCli
         form = form_class(entity_name).new(attributes)
         entity = use_case_class(entity_name).new(form).run
         io.print_success "Successfully created #{printable_entity_name}"
+        io.print_blank_line
         io.send("print_#{entity_identifier.downcase}", entity)
 
       rescue ValidationError => e

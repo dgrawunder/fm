@@ -90,4 +90,41 @@ describe FmCli::AccountingPeriod, type: :cli do
     end
   end
 
+  describe '#current' do
+
+    context 'when called with no option' do
+
+      it 'should print current accounting period if exists' do
+        current_accounting_period = create(:accounting_period)
+        create(:current_accounting_period_id_property, value: current_accounting_period.id)
+
+
+        run_command 'aperiod', 'current'
+      end
+
+      it 'should print failure message when current AccountingPeriod not exists' do
+        expect_to_print_failure_message
+        run_command 'aperiod', 'current'
+      end
+    end
+
+    context 'when called with -p option' do
+
+      it 'should set new current AccountingPeriod if one exists with given name part' do
+        accounting_period = create(:accounting_period, name: 'First Accounting Period')
+
+        expect_to_print :accounting_period do |actual_accounting_period|
+          expect(actual_accounting_period).to eq accounting_period
+        end
+
+        run_command 'aperiod', 'current', '-p', 'First'
+      end
+
+      it 'should print failure message when current AccountingPeriod not exists' do
+        expect_to_print_failure_message
+        run_command 'aperiod', 'current', '-p', 'First'
+      end
+    end
+  end
+
 end

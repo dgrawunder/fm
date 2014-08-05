@@ -41,6 +41,17 @@ module FmCli
       run_interaction(:delete_entity, id, :accounting_period)
     end
 
+    desc 'current [OPTIONS]', 'Shows or change current accounting period'
+    method_option '--accounting-period', aliases: '-p'
+
+    def current
+      if options['accounting-period']
+        run_interaction(:set_current_accounting_period, options['accounting-period'])
+      else
+        run_interaction(:show_current_accounting_period)
+      end
+    end
+
     private
 
     def fill_attributes_with_common_create_and_update_options(attributes, options)

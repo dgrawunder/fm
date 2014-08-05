@@ -12,5 +12,6 @@ class SetCurrentAccountingPeriod
     end
     accounting_period = AccountingPeriodRepository.find(id)
     PropertyRepository.save_value(Property::CURRENT_ACCOUNTING_PERIOD_ID, accounting_period.id)
+    accounting_period
   end
 end

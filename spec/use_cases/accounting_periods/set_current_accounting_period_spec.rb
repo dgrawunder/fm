@@ -8,7 +8,7 @@ describe SetCurrentAccountingPeriod do
     let(:identifier) { accounting_period.id }
 
     it 'should set AccountingPeriod of given id as current' do
-      subject.run
+      expect(subject.run).to eq accounting_period
       expect(PropertyRepository.find_current_accounting_period_id.to_i).to eq accounting_period.id
     end
 
@@ -24,7 +24,7 @@ describe SetCurrentAccountingPeriod do
 
     it 'should set AccountingPeriod of given name as current' do
       accounting_period
-      subject.run
+      expect(subject.run).to eq accounting_period
       expect(PropertyRepository.find_current_accounting_period_id.to_i).to eq accounting_period.id
     end
 
