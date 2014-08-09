@@ -18,6 +18,10 @@ class TransactionType < Virtus::Attribute
       TYPES.values
     end
 
+    def names
+      TYPES.keys
+    end
+
     def [](name)
       TYPES[name]
     end

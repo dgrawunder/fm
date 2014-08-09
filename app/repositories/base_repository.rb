@@ -76,6 +76,12 @@ module BaseRepository
 
     private
 
+    def build_entities records, included_associations=[]
+      records.map do |record|
+        build_entity record, included_associations
+      end
+    end
+
     def copy_attributes_to_record(record, entity)
       record.attributes = Hash[
           record_class.mapped_attributes.map do |attribute|
@@ -92,7 +98,7 @@ module BaseRepository
     end
 
     def run_query scope, included_associations=[]
-      scope.map { |record| build_entity(record, included_associations) }
+      build_entities(scope.to_a, included_associations)
     end
 
     def entity_class

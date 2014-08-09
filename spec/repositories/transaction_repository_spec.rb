@@ -2,6 +2,32 @@ describe TransactionRepository do
 
   subject { TransactionRepository }
 
+  it 'should have query method for every TransactionType except receivable returning all transactions of given type AccountingPeriod id' do
+    expense_1 = create(:expense, accounting_period_id: 5)
+    expense_2 = create(:expense, accounting_period_id: 5)
+    create(:expense, accounting_period_id: 6)
+    income = create(:income, accounting_period_id: 5)
+    inpayment = create(:inpayment, accounting_period_id: 5)
+    outpayment = create(:outpayment, accounting_period_id: 5)
+
+    expect(subject.expenses_by_accounting_period_id(5)).to eq [expense_1, expense_2]
+    expect(subject.incomes_by_accounting_period_id(5)).to eq [income]
+    expect(subject.inpayments_by_accounting_period_id(5)).to eq [inpayment]
+    expect(subject.outpayments_by_accounting_period_id(5)).to eq [outpayment]
+    expect(subject).not_to respond_to(:receivables_by_accounting_period_id)
+  end
+
+  describe '#receivables' do
+
+    it 'should return all receivables' do
+      receivable_1 = create(:receivable)
+      receivable_2 = create(:receivable)
+      create(:expense)
+
+      expect(subject.receivables).to eq [receivable_1, receivable_2]
+    end
+  end
+
   describe '#search' do
 
     it 'should return all Transaction if empty criteria given' do

@@ -2,7 +2,7 @@ describe AccountingPeriodRepository do
 
   subject { AccountingPeriodRepository }
 
-  describe '#exists_by_id?' do
+  describe '::exists_by_id?' do
 
     it 'should return true when AccountingPeriod with given id exists' do
       accounting_period = create(:accounting_period)
@@ -15,7 +15,7 @@ describe AccountingPeriodRepository do
     end
   end
 
-  describe '#exists_by_name?' do
+  describe '::exists_by_name?' do
 
     it 'should return true when AccountingPeriod with given name exists' do
       create(:accounting_period, name: 'Period 1')
@@ -39,9 +39,14 @@ describe AccountingPeriodRepository do
     it 'should return nil when no AccountingPeriod could be found' do
       expect(subject.search_id_by_name('riod 1')).to be_nil
     end
+
+    it 'should return nil when search is nil' do
+      create(:accounting_period, name: 'AccountingPeriod 1')
+      expect(subject.search_id_by_name(nil)).to be_nil
+    end
   end
 
-  describe '#all_ordered_by_starts_at' do
+  describe '::all_ordered_by_starts_at' do
 
     it 'should return all ordered by starts_at desc' do
       accounting_period_3 = create(:accounting_period, starts_at: 3.days.ago)

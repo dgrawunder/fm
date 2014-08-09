@@ -12,6 +12,7 @@ require_relative 'app/domain/form'
 require_relative 'app/domain/entity_form'
 
 require_relative 'app/domain/util/date_parser'
+require_relative 'app/domain/transaction/transaction_type'
 
 require_relative 'app/repositories/base_repository'
 require_relative 'app/repositories/accounting_period_repository'
@@ -23,15 +24,18 @@ require_relative 'app/domain/property/property'
 
 require_relative 'app/domain/accounting_period/accounting_period'
 require_relative 'app/domain/accounting_period/accounting_period_form'
+require_relative 'app/domain/accounting_period/accounting_period_identifier_resolver'
 
-require_relative 'app/domain/transaction/transaction_type'
 require_relative 'app/domain/transaction/transaction_search_form'
 require_relative 'app/domain/transaction/transaction'
 require_relative 'app/domain/transaction/transaction_form'
+require_relative 'app/domain/transaction/transaction_sums'
 
 require_relative 'app/domain/category/category'
 require_relative 'app/domain/category/category_form'
 require_relative 'app/domain/category/category_search_form'
+
+require_relative 'app/domain/report/balance_report'
 
 require_relative 'app/use_cases/concerns/entity_use_case_hooks'
 require_relative 'app/use_cases/create_entity'
@@ -60,6 +64,7 @@ require_relative 'app/use_cases/transactions/find_transaction'
 require_relative 'app/use_cases/transactions/fill_transaction_form'
 require_relative 'app/use_cases/transactions/search_transactions'
 require_relative 'app/use_cases/transactions/search_current_transactions'
+require_relative 'app/use_cases/reports/get_balance_report'
 
 require_relative 'db/initialize'
 

@@ -13,6 +13,7 @@ class AccountingPeriodRepository
     end
 
     def search_id_by_name(search)
+      return nil if search.nil?
       record_class.where("name like ?", "%#{search}%").pluck(:id).first
     end
 
