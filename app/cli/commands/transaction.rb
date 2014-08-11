@@ -21,7 +21,7 @@ module FmCli
           run_interaction(:create_entity, attributes, :transaction)
         end
 
-        desc 'update <id> [...OPTIONS]', 'updates a transaction'
+        desc 'update <id> [OPTIONS]', 'updates a transaction'
         common_create_and_update_options
 
         def update(id)
