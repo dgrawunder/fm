@@ -4,9 +4,50 @@ module FmCli
     def print_balance_report balance_report
       table do
         row do
-          column('BALANCE', :width => 20)
-          column(format_currency(balance_report.balance), :width => 20)
-          column(format_currency(balance_report.total_expected_balance), :width => 20)
+          column('CREDIT', width: 15)
+          column(format_currency(balance_report.credit), width: 12, align:'right')
+          column(format_currency(balance_report.total_expected_credit), width: 12, align: 'right', color: 'cyan')
+        end
+        row do
+          column('CREDIT w. Rec.')
+          column(nil  )
+          column(format_currency(balance_report.total_expected_credit_including_receivables))
+        end
+      end
+      print_blank_line
+      table do
+        row do
+          column('BALANCE', width: 15)
+          column(format_currency(balance_report.balance), width: 12, align:'right')
+          column(format_currency(balance_report.total_expected_balance),  width: 12, align: 'right', color: 'cyan')
+        end
+      end
+      print_blank_line
+      table do
+        row do
+          column('EXPENSES', width: 15)
+          column(format_currency(balance_report.expenses), width: 12, align:'right')
+          column(format_currency(balance_report.total_expected_expenses),  width: 12, align: 'right', color: 'cyan')
+        end
+        row do
+          column('INCOMES')
+          column(format_currency(balance_report.incomes))
+          column(format_currency(balance_report.total_expected_incomes))
+        end
+        row do
+          column('INPAYMENTS')
+          column(format_currency(balance_report.inpayments))
+          column(format_currency(balance_report.total_expected_inpayments))
+        end
+        row do
+          column('OUTPAYMENTS')
+          column(format_currency(balance_report.outpayments))
+          column(format_currency(balance_report.total_expected_outpayments))
+        end
+        row do
+          column('RECEIVABLES')
+          column(format_currency(balance_report.receivables))
+          column(format_currency(balance_report.total_expected_receivables))
         end
       end
     end

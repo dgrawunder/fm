@@ -5,8 +5,9 @@ module FmCli
       date.strftime('%d.%m.%Y')
     end
 
-    def format_currency amount
-      format('%.2f €', amount)
+    def format_currency amount, expected: false
+      formatted = format('%.2f €', amount)
+      expected ? formatted.colorize(:cyan) : formatted
     end
   end
 end
