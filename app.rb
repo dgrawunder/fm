@@ -64,6 +64,7 @@ require_relative 'app/use_cases/transactions/find_transaction'
 require_relative 'app/use_cases/transactions/fill_transaction_form'
 require_relative 'app/use_cases/transactions/search_transactions'
 require_relative 'app/use_cases/reports/get_balance_report'
+require_relative 'app/use_cases/reports/get_category_report'
 
 require_relative 'db/initialize'
 

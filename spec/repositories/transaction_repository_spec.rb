@@ -19,9 +19,10 @@ describe TransactionRepository do
 
   describe '#receivables' do
 
-    it 'should return all receivables' do
+    it 'should return all receivables not being a template' do
       receivable_1 = create(:receivable)
       receivable_2 = create(:receivable)
+      create(:receivable, template: true)
       create(:expense)
 
       expect(subject.receivables).to eq [receivable_1, receivable_2]

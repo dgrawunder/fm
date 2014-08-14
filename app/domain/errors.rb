@@ -14,5 +14,6 @@ class ValidationError < StandardError
   end
 end
 
-UnknownTransactionTypeError = Class.new StandardError
+NoCurrentAccountingPeriodError = Class.new StandardError
 RecordNotFoundError = Class.new StandardError
+UnknownTransactionTypeError = Class.new StandardError

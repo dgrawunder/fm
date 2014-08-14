@@ -11,7 +11,7 @@ class TransactionRepository
     end
 
     def receivables
-      build_entities record_class.where(type: TransactionType[:receivable])
+      build_entities record_class.where(type: TransactionType[:receivable], template: false)
     end
 
     def search(criteria, include: [])
