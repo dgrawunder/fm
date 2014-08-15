@@ -18,5 +18,13 @@ describe TransactionSums do
       expect(actual_transaction_sums.expected_sum).to eq 20.06
       expect(actual_transaction_sums.total_expected_sum).to eq 67.40
     end
+
+    it 'should have 0 as default value for every sum if transactions are nil' do
+      actual_transaction_sums = subject.create(nil)
+
+      expect(actual_transaction_sums.actual_sum).to eq 0
+      expect(actual_transaction_sums.expected_sum).to eq 0
+      expect(actual_transaction_sums.total_expected_sum).to eq 0
+    end
   end
 end

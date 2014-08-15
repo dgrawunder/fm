@@ -101,6 +101,7 @@ PLATFORMS
 DEPENDENCIES
   activemodel
   activerecord
+  activesupport
   colorize
   command_line_reporter
   database_cleaner

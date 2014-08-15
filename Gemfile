@@ -5,6 +5,7 @@ gem 'rake'
 gem 'sqlite3'
 gem 'activerecord', require: 'active_record'
 gem 'activemodel', require: 'active_model'
+gem 'activesupport', require: 'active_support'
 
 gem 'lift'
 gem 'virtus'

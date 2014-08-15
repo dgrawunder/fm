@@ -7,6 +7,7 @@ class TransactionSums
   attr_accessor :total_expected_sum
 
   def self.create(transactions)
+    transactions = [] unless transactions.present?
     actual_sum = expected_sum = 0
 
     transactions.each do |transaction|

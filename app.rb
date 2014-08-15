@@ -34,6 +34,7 @@ require_relative 'app/domain/transaction/transaction_sums'
 require_relative 'app/domain/category/category'
 require_relative 'app/domain/category/category_form'
 require_relative 'app/domain/category/category_search_form'
+require_relative 'app/domain/category/category_sums'
 
 require_relative 'app/domain/report/balance_report'
 
