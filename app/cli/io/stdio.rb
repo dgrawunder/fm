@@ -10,7 +10,7 @@ module FmCli
     include CategoryIoHelper
     include TransactionIoHelper
     include FormatHelpers
-    include BalanceReportIoHelper
+    include ReportIoHelper
 
     def print(*args)
       @output.say *args
