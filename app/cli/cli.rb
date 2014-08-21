@@ -4,13 +4,13 @@ module FmCli
     include Transaction
     include BalanceCommand
 
-    desc 'period SUBCOMMAND ...ARGS', 'Manage accounting periods'
+    desc 'period SUBCOMMAND [OPTIONS]', 'Manage accounting periods'
     subcommand "period", FmCli::AccountingPeriod
 
-    desc 'category SUBCOMMAND ...ARGS', 'Manage categories'
+    desc 'category SUBCOMMAND [OPTIONS]', 'Manage categories'
     subcommand "category", FmCli::Category
 
-    desc 'report SUBCOMMAND ...ARGS', 'Shows different reports'
+    desc 'report SUBCOMMAND [OPTIONS]', 'Shows different reports'
     subcommand "report", FmCli::ReportCommand
   end
 end

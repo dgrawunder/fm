@@ -11,9 +11,9 @@ module FmCli
           method_option 'type', aliases: '-t'
         end
 
-        desc 'add OPTIONS ...', 'Adds a transaction to the current accounting period'
+        desc 'add -d DESCRIPTION -a AMOUNT [OPTIONS]',
+             "Adds a new transaction to the current or specified accounting period"
         common_create_and_update_options
-
         def add
           attributes = {}
           fill_attributes_with_common_create_and_update_options(attributes, options)
@@ -21,7 +21,7 @@ module FmCli
           run_interaction(:create_entity, attributes, :transaction)
         end
 
-        desc 'update <id> [OPTIONS]', 'updates a transaction'
+        desc 'update <id> [OPTIONS]', 'Updates a transaction'
         common_create_and_update_options
 
         def update(id)
@@ -37,8 +37,10 @@ module FmCli
           run_interaction(:delete_entity, id, :transaction)
         end
 
+        # Creates for every transaction type a listing command, e.g. expenses
         TransactionType::TYPES.each do |type_name, type_number|
-          desc "#{type_name}", "Shows all #{type_name.to_s.pluralize}"
+          desc "#{type_name} [OPTIONS]",
+               "Lists all #{type_name.to_s.pluralize} to the current or specified accounting period."
           method_option 'accounting-period', aliases: '-p'
           method_option :templates, aliases: '-t', type: :boolean, default: false
 
