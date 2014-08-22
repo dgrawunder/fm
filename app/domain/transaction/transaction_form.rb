@@ -15,6 +15,7 @@ class TransactionForm < EntityForm
 
   validates :description, presence: true, length: {maximum: 48}
   validates :amount, presence: true, numericality: {greater_than_or_equal_to: 0}
+  validates :type, inclusion: TransactionType.numbers
   validates :day_of_month, numericality: {greater_than: 0, less_than: 32}, allow_nil: true
 
   validate :validate_presence_of_accounting_period

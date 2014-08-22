@@ -7,7 +7,7 @@ module FmCli
       method_option '--initial-deposit', aliases: '-d'
     end
 
-    desc 'add <name> [...OPTIONS]', 'Adds an accounting period'
+    desc 'add NAME [OPTIONS]', 'Adds an accounting period'
     common_create_and_update_options
 
     def add(name)
@@ -23,7 +23,7 @@ module FmCli
       run_interaction(:list_accounting_periods)
     end
 
-    desc 'update <id> [...OPTIONS]', 'Adds an accounting period'
+    desc 'update ID [OPTIONS]', 'Adds an accounting period'
     method_option '--name', aliases: '-n'
     common_create_and_update_options
 
@@ -35,7 +35,7 @@ module FmCli
       run_interaction(:update_entity, id, attributes, :accounting_period)
     end
 
-    desc 'delete <id>', 'Deletes a accounting period forevermore'
+    desc 'delete ID', 'Deletes a accounting period forevermore'
 
     def delete(id)
       run_interaction(:delete_entity, id, :accounting_period)

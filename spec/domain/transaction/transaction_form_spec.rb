@@ -6,6 +6,7 @@ describe TransactionForm do
     it { should validate_presence_of :description }
     it { should ensure_length_of(:description).is_at_most(48) }
     it { should validate_presence_of :amount }
+    it { should ensure_inclusion_of(:type).in_array(TransactionType.numbers) }
     it { should validate_numericality_of(:amount).is_greater_than_or_equal_to(0) }
     it { should validate_numericality_of(:day_of_month).is_greater_than(0).is_less_than(32).allow_nil }
 

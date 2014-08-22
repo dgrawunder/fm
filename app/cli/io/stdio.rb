@@ -37,5 +37,15 @@ module FmCli
     def print_blank_line
       print "\n"
     end
+
+    private
+
+    def table_header_fg_color
+      :blue
+    end
+
+    def table_body_fg_color
+      :white
+    end
   end
 end

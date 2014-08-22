@@ -9,19 +9,26 @@ module FmCli
           method_option 'description', aliases: '-d'
           method_option 'amount', aliases: '-a'
           method_option 'type', aliases: '-t'
+          method_option 'day-of-month', aliases: '-m'
         end
 
         desc 'add -d DESCRIPTION -a AMOUNT [OPTIONS]',
              "Adds a new transaction to the current or specified accounting period"
         common_create_and_update_options
+        method_option 'template', aliases: '-T', type: :boolean, default: false
+
         def add
-          attributes = {}
+          attributes = {
+              template: options[:templates]
+          }
           fill_attributes_with_common_create_and_update_options(attributes, options)
+          attributes[:template] = options[:template] if options[:template]
+          attributes[:day_of_month] = options['day-of-month'] if options['day-of-month']
 
           run_interaction(:create_entity, attributes, :transaction)
         end
 
-        desc 'update <id> [OPTIONS]', 'Updates a transaction'
+        desc 'update ID [OPTIONS]', 'Updates a transaction'
         common_create_and_update_options
 
         def update(id)
@@ -31,18 +38,18 @@ module FmCli
           run_interaction(:update_entity, id, attributes, :transaction)
         end
 
-        desc 'delete <id>', 'Deletes a transaction forevermore'
+        desc 'delete ID', 'Deletes a transaction forevermore'
 
         def delete(id)
           run_interaction(:delete_entity, id, :transaction)
         end
 
-        # Creates for every transaction type a listing command, e.g. expenses
+        # Creates a listing command for every transaction type e.g. expenses
         TransactionType::TYPES.each do |type_name, type_number|
-          desc "#{type_name} [OPTIONS]",
+          desc "#{type_name.to_s.pluralize} [OPTIONS]",
                "Lists all #{type_name.to_s.pluralize} to the current or specified accounting period."
           method_option 'accounting-period', aliases: '-p'
-          method_option :templates, aliases: '-t', type: :boolean, default: false
+          method_option :templates, aliases: '-T', type: :boolean, default: false
 
           define_method type_name.to_s.pluralize do
             attributes = {

@@ -42,6 +42,14 @@ describe CreateTransaction do
     expect(actual_transaction.category_id).to eq category.id
   end
 
+  it 'should create template' do
+    form.template = true
+    form.day_of_month = 3
+    actual_transaction = subject.run
+
+    expect(TransactionRepository.find(actual_transaction.id).template).to be true
+  end
+
   it 'should throw ValidationError when given form is invalid' do
     form.description = nil
     expect { subject.run }.to raise_error ValidationError

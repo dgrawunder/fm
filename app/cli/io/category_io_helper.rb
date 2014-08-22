@@ -21,13 +21,13 @@ module FmCli
     def print_categories(categories)
       table(:border => false) do
         row do
-          column('ID', :width => 6, :align => 'right')
-          column('NAME', :width => 20)
+          column('ID', width: 8, color: table_header_fg_color)
+          column('NAME', width: 20, color: table_header_fg_color)
         end
         categories.each do |category|
           row do
-            column(category.id)
-            column(category.name)
+            column(category.id, color: table_body_fg_color)
+            column(category.name, color: table_body_fg_color)
           end
         end
       end

@@ -124,24 +124,27 @@ describe FmCli::Transaction, type: :cli do
     end
 
     it 'should print all current transactions of given type' do
-      expect_to_print :transactions do |actual_transactions|
+      expect_to_print :transactions do |actual_transactions, template|
         expect(actual_transactions).to eq [transactions.second, transactions.first]
+        expect(template).to be false
       end
       run_command 'expenses'
     end
 
     it 'should print all transactions of given type and specified AccountingPeriod if option -p present' do
-      expect_to_print :transactions do |actual_transactions|
+      expect_to_print :transactions do |actual_transactions, template|
         expect(actual_transactions).to eq [transactions.fourth, transactions.third]
+        expect(template).to be false
       end
       run_command 'expenses', '-p', 'First'
     end
 
-    it 'should print all templates of given type if options -t is given' do
-      expect_to_print :transactions do |actual_transactions|
+    it 'should print all templates of given type if options -T is given' do
+      expect_to_print :transactions do |actual_transactions, template|
         expect(actual_transactions).to eq [transactions[7], transactions[6]]
+        expect(template).to be true
       end
-      run_command 'expenses', '-t'
+      run_command 'expenses', '-T'
     end
   end
 end
