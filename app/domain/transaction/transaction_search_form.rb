@@ -4,6 +4,7 @@ class TransactionSearchForm < Form
   attribute :accounting_period_name, String
   attribute :type, TransactionType
   attribute :template, Boolean
+  attribute :term
   alias template template?
   attribute :sort
 

@@ -45,10 +45,10 @@ describe TransactionRepository do
       transaction_1 = create(:expense, accounting_period_id: 5)
       transaction_2 = create(:income, accounting_period_id: 5)
       create(:expense, accounting_period_id: 6)
-      
+
       expect(subject.all_by_accounting_period_id(5)).to eq [transaction_1, transaction_2]
     end
-    
+
   end
 
   describe '::search' do
@@ -84,6 +84,35 @@ describe TransactionRepository do
 
       expect(actual_transactions.first.category).to eq category_1
       expect(actual_transactions.second.category).to eq category_2
+    end
+
+    context 'if term present' do
+
+      it 'should use it as search term for description' do
+        transaction_1 = create(:expense, description: 'A Food Store 1')
+        transaction_2 = create(:expense, description: 'A Food Store 2')
+        create(:expense)
+
+        criteria = TransactionSearchForm.new(term: 'Food Store')
+        expect(subject.search(criteria)).to eq [transaction_1, transaction_2]
+      end
+
+      it 'should use it as search term for amount' do
+        transaction_1 = create(:expense, amount: 34.90)
+        create(:expense, amount: 34.99)
+
+        criteria = TransactionSearchForm.new(term: '34.90')
+        expect(subject.search(criteria)).to eq [transaction_1]
+      end
+
+      it 'should use it as search term for category names' do
+        category_1 = create(:expense_category, name: 'First Food Category')
+        transaction_1 = create(:expense, category_id: category_1.id)
+        create(:expense)
+
+        criteria = TransactionSearchForm.new(term: 'Food')
+        expect(subject.search(criteria)).to eq [transaction_1]
+      end
     end
   end
 

@@ -28,9 +28,36 @@ class TransactionRepository
       query = query.where(accounting_period_id: criteria.accounting_period_id) if criteria.accounting_period_id.present?
       query = query.where(type: criteria.type) if criteria.type.present?
       query = query.where(template: criteria.template) unless criteria.template.nil?
+      if criteria.term.present?
+        query = query.
+            joins('LEFT OUTER JOIN categories ON categories.id = transactions.category_id').
+            where(*term_search_condition(criteria.term))
+      end
       query = query.order(criteria.sort) if criteria.sort.present?
       query = query.includes(:category) if includes.include? :category
       run_query(query, includes)
+    end
+
+    private
+
+    def term_search_condition(search_term)
+      condition = textual_term_search_condition
+      args = {search_term: "%#{search_term}%"}
+      if search_term.numeric?
+        condition = "#{condition} OR #{numeric_term_search_condition}"
+        amount = search_term.to_f
+        args[:min_amount] = amount - 0.01
+        args[:max_amount] = amount + 0.01
+      end
+      [condition, args]
+    end
+
+    def textual_term_search_condition
+      ['transactions.description', 'categories.name'].map { |column| column.to_s + ' LIKE :search_term' }.join(' OR ')
+    end
+
+    def numeric_term_search_condition
+      "(amount > :min_amount AND amount < :max_amount)"
     end
   end
 end
