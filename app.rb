@@ -11,8 +11,7 @@ require_relative 'app/domain/entity'
 require_relative 'app/domain/form'
 require_relative 'app/domain/entity_form'
 
-require_relative 'app/domain/util/date_parser'
-require_relative 'app/domain/util/date_finder'
+require_relative 'app/domain/util/date_util'
 require_relative 'app/domain/transaction/transaction_type'
 
 require_relative 'app/repositories/base_repository'

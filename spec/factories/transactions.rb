@@ -33,8 +33,8 @@ FactoryGirl.define do
 
     factory :template do
       template true
-      happend_at nil
-      day_of_month_to_happen (1..31).to_a.sample
+      date nil
+      day_of_month (1..31).to_a.sample
     end
   end
 end

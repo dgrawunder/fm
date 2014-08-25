@@ -17,15 +17,25 @@ describe TransactionRepository do
     expect(subject).not_to respond_to(:receivables_by_accounting_period_id)
   end
 
-  describe '#receivables' do
+  describe '::receivables' do
 
     it 'should return all receivables not being a template' do
       receivable_1 = create(:receivable)
       receivable_2 = create(:receivable)
       create(:receivable, template: true)
       create(:expense)
-
       expect(subject.receivables).to eq [receivable_1, receivable_2]
+    end
+  end
+
+  describe '::templates' do
+
+    it 'should return all templates' do
+      template_1 = create(:template)
+      template_2 = create(:template)
+      create(:expense)
+      expect(subject.templates).to eq [template_1, template_2]
+
     end
   end
 

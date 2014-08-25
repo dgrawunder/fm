@@ -14,6 +14,10 @@ class TransactionRepository
       build_entities record_class.where(type: TransactionType[:receivable], template: false)
     end
 
+    def templates
+      build_entities record_class.where(template: true)
+    end
+
     def all_by_accounting_period_id(accounting_period_id)
       build_entities record_class.where(accounting_period_id: accounting_period_id)
     end

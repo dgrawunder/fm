@@ -9,7 +9,10 @@ class CreateEntity
   def run
     run_before_validation(@form)
     @form.validate!
-    entity_class.new(@form.attributes).save
+    entity = entity_class.new(@form.attributes)
+    entity.save
+    run_after_save(entity)
+    entity
   end
 
   private

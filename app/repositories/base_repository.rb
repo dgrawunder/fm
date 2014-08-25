@@ -53,6 +53,10 @@ module BaseRepository
       build_entity record_class.first
     end
 
+    def all
+      build_entities record_class.all
+    end
+
     def build_entity record, included_associations=[]
       return if record.nil?
       entity = entity_class.new

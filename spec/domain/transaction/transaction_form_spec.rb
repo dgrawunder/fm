@@ -68,6 +68,13 @@ describe TransactionForm do
       subject.valid?
       expect(subject.errors[:accounting_period_id]).to include "doesn't exists"
     end
+
+    it 'should en sure that receivable cannot be template' do
+      subject.template = true
+      subject.type = TransactionType[:receivable]
+      subject.valid?
+      expect(subject.errors[:template]).to include 'cannot be a receivable'
+    end
   end
 
   describe '#accounting_period_id' do
