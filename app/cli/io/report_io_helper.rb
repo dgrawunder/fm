@@ -4,6 +4,14 @@ module FmCli
     def print_balance_report balance_report
       table do
         row do
+          column('BALANCE', width: 15)
+          column(format_currency(balance_report.balance), width: 12, align: 'right')
+          column(format_currency(balance_report.total_expected_balance), width: 12, align: 'right', color: 'cyan')
+        end
+      end
+      print_blank_line
+      table do
+        row do
           column('CREDIT', width: 15)
           column(format_currency(balance_report.credit), width: 12, align: 'right')
           column(format_currency(balance_report.total_expected_credit), width: 12, align: 'right', color: 'cyan')
@@ -12,14 +20,6 @@ module FmCli
           column('CREDIT w. Rec.')
           column(nil)
           column(format_currency(balance_report.total_expected_credit_including_receivables))
-        end
-      end
-      print_blank_line
-      table do
-        row do
-          column('BALANCE', width: 15)
-          column(format_currency(balance_report.balance), width: 12, align: 'right')
-          column(format_currency(balance_report.total_expected_balance), width: 12, align: 'right', color: 'cyan')
         end
       end
       print_blank_line

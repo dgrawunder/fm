@@ -17,6 +17,7 @@ require_relative 'interactions/accounting_periods/show_current_accounting_period
 require_relative 'interactions/accounting_periods/set_current_accounting_period_interaction'
 require_relative 'interactions/categories/list_categories_interaction'
 require_relative 'interactions/transactions/list_transaction_interaction'
+require_relative 'interactions/transactions/search_transaction_interaction'
 require_relative 'interactions/reports/get_balance_report_interaction'
 require_relative 'interactions/reports/get_category_report_interaction'
 require_relative 'command'

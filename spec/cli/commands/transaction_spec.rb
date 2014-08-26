@@ -12,7 +12,7 @@ describe FmCli::Transaction, type: :cli do
     create(:current_accounting_period_id_property, value: current_accounting_period.id)
   end
 
-  describe '#add' do
+  describe 'add' do
 
     it 'should create transaction belonging to given AccountingPeriod and Category' do
       category
@@ -50,7 +50,7 @@ describe FmCli::Transaction, type: :cli do
     end
   end
 
-  describe '#update' do
+  describe 'update' do
 
     let(:transaction) { create(:expense, description: 'desc 1', accounting_period_id: create(:accounting_period).id) }
 
@@ -78,7 +78,7 @@ describe FmCli::Transaction, type: :cli do
     end
   end
 
-  describe '#delete' do
+  describe 'delete' do
 
     let(:transaction) { create(:expense) }
 
@@ -145,6 +145,30 @@ describe FmCli::Transaction, type: :cli do
         expect(template).to be true
       end
       run_command 'expenses', '-T'
+    end
+  end
+
+  describe 'search' do
+
+    let(:transactions) do
+      [
+          create(:transaction, accounting_period_id: current_accounting_period.id, description: 'Food 1', date: 1.day.ago),
+          create(:transaction, accounting_period_id: current_accounting_period.id, description: 'Food 2', date: 2.days.ago),
+          create(:transaction, accounting_period_id: current_accounting_period.id, description: 'foo'),
+          create(:transaction, accounting_period_id: current_accounting_period.id+1, description: 'Food 1')
+      ]
+    end
+
+    before :each do
+      transactions
+    end
+
+    it 'should search for current transactions' do
+      expect_to_print :transactions do |actual_transactions, template|
+        expect(actual_transactions).to eq [transactions.first, transactions.second]
+        expect(template).to be false
+      end
+      run_command 'search', 'Food'
     end
   end
 end

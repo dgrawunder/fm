@@ -63,6 +63,15 @@ module FmCli
           end
         end
 
+        desc 'search SEARCH-TERM', 'Searches for current transactions'
+
+        def search(search_term)
+          attributes = {
+              term: search_term
+          }
+          run_interaction(:search_transaction, attributes)
+        end
+
         private
 
         def fill_attributes_with_common_create_and_update_options(attributes, options)
