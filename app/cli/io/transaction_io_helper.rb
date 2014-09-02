@@ -23,7 +23,7 @@ module FmCli
         end
         row do
           column('AMOUNT')
-          column(format_currency transaction.amount)
+          column(format_currency transaction.amount, expected: transaction.expected)
         end
         if transaction.template?
           row do
@@ -47,13 +47,13 @@ module FmCli
       table(:border => false) do
         row do
           column('ID', width: 8, color: table_header_fg_color)
-          column('CATEGORY', width: 25, color: table_header_fg_color)
-          column('DESCRIPTION', width: 30, color: table_header_fg_color)
-          column('AMOUNT', color: table_header_fg_color)
+          column('CATEGORY', width: 20, color: table_header_fg_color)
+          column('DESCRIPTION', width: 35, color: table_header_fg_color)
+          column('AMOUNT', align: 'right', color: table_header_fg_color)
           if template
             column('DOM', width: 3, align: 'right', color: table_header_fg_color)
           else
-            column('DATE', color: table_header_fg_color)
+            column('DATE', width: 12, align: 'right', color: table_header_fg_color)
           end
         end
         transactions.each do |transaction|
@@ -61,7 +61,7 @@ module FmCli
             column(transaction.id, color: table_body_fg_color)
             column(transaction.category.try(:name), color: table_body_fg_color)
             column(transaction.description, color: table_body_fg_color)
-            column(format_currency(transaction.amount), color: table_body_fg_color)
+            column(format_currency(transaction.amount), color:  transaction.expected ? expected_color : table_body_fg_color)
             if template
               column(transaction.day_of_month, color: table_body_fg_color)
             else

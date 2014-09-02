@@ -20,8 +20,8 @@ describe FmCli::Transaction, type: :cli do
       expect_to_print :transaction
 
       run_command 'add',
-                  '-p', 'First ', '-c', 'Category 1',
-                  '-d', 'description', '-a', '23.5', '-t', 'income'
+                  'description', '23.5',
+                  '-p', 'First ', '-c', 'Category 1', '-t', 'income'
       expect(TransactionRepository.count).to eq 1
 
       actual_transaction = TransactionRepository.first
@@ -32,8 +32,8 @@ describe FmCli::Transaction, type: :cli do
     it 'should create transaction belong to current AccountingPeriod if no one given' do
 
       run_command 'add',
-                  '-p', 'Second',
-                  '-d', 'description', '-a', '23.5', '-t', 'income'
+                  'description', '23.5',
+                  '-p', 'Second', '-t', 'income'
       expect(TransactionRepository.count).to eq 1
       expect(TransactionRepository.first.accounting_period).to eq current_accounting_period
     end
@@ -44,7 +44,7 @@ describe FmCli::Transaction, type: :cli do
 
       run_command 'add',
                   '-p', 'First Accounting Period', '-c', 'category 1',
-                  '-d', 'description'
+                  '-D', 'description'
 
       expect(TransactionRepository.count).to eq 0
     end
@@ -59,7 +59,7 @@ describe FmCli::Transaction, type: :cli do
       expect_to_print_success_message
       expect_to_print :transaction
 
-      run_command 'update', transaction.id.to_s, '-d', 'desc 2'
+      run_command 'update', transaction.id.to_s, '-D', 'desc 2'
       expect(TransactionRepository.first.description).to eq 'desc 2'
     end
 
@@ -67,14 +67,14 @@ describe FmCli::Transaction, type: :cli do
       expect_to_print_failure_message
       expect_to_print_errors
 
-      run_command 'update', transaction.id.to_s, '-d', ''
+      run_command 'update', transaction.id.to_s, '-D', ''
       expect(TransactionRepository.first.description).to eq 'desc 1'
     end
 
     it 'should print error on invalid id' do
       expect_to_print_failure_message
 
-      run_command 'update', (transaction.id + 1).to_s, '-d', 'desc 2'
+      run_command 'update', (transaction.id + 1).to_s, '-D', 'desc 2'
     end
   end
 
@@ -169,6 +169,17 @@ describe FmCli::Transaction, type: :cli do
         expect(template).to be false
       end
       run_command 'search', 'Food'
+    end
+  end
+
+  describe 'payed' do
+
+    let(:transaction) { create(:transaction, expected: true, accounting_period_id: accounting_period_1.id) }
+
+    it 'should set expected to false' do
+      expect_to_print_success_message
+      run_command 'payed', transaction.id.to_s
+      expect(TransactionRepository.find(transaction.id)).to_not be_expected
     end
   end
 end

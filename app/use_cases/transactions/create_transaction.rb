@@ -4,8 +4,12 @@ class CreateTransaction < CreateEntity
     if form.template?
       form.accounting_period_id = nil
       form.date = nil
-    else
+    elsif form.type != TransactionType[:receivable]
       form.resolve_accounting_period_id!
+
+      if form.accounting_period_id.nil?
+        form.accounting_period_id = PropertyRepository.find_current_accounting_period_id
+      end
     end
     form.resolve_category_id!
   end

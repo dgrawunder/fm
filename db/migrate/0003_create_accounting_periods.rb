@@ -1,6 +1,6 @@
 class CreateAccountingPeriods < ActiveRecord::Migration
   def self.up
-    create_table :accounting_period do |t|
+    create_table :accounting_periods do |t|
       t.string :name
       t.date :starts_at
       t.date :ends_at

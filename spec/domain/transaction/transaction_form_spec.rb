@@ -4,7 +4,7 @@ describe TransactionForm do
   describe 'validation' do
 
     it { should validate_presence_of :description }
-    it { should ensure_length_of(:description).is_at_most(48) }
+    it { should ensure_length_of(:description).is_at_most(35) }
     it { should validate_presence_of :amount }
     it { should ensure_inclusion_of(:type).in_array(TransactionType.numbers) }
     it { should validate_numericality_of(:amount).is_greater_than_or_equal_to(0) }
@@ -74,14 +74,6 @@ describe TransactionForm do
       subject.type = TransactionType[:receivable]
       subject.valid?
       expect(subject.errors[:template]).to include 'cannot be a receivable'
-    end
-  end
-
-  describe '#accounting_period_id' do
-
-    it 'should have default value of current AccountingPeriod-Id' do
-      allow(PropertyRepository).to receive(:find_current_accounting_period_id).and_return('5')
-      expect(subject.accounting_period_id).to eq 5
     end
   end
 

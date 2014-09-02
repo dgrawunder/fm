@@ -1,10 +1,10 @@
 describe CategoryForm do
 
   it { should validate_presence_of :name }
-  it { should ensure_length_of(:name).is_at_most(32) }
+  it { should ensure_length_of(:name).is_at_most(20) }
   it { should ensure_inclusion_of(:transaction_type).in_array(TransactionType.numbers) }
 
-  it 'should ensure that name is unique for given TransactionType on new' do
+  it 'should ensure that name is unique for given TransactionType' do
     subject.entity_id = 3
     subject.name = 'Cate 1'
     subject.transaction_type = TransactionType[:income]

@@ -47,5 +47,9 @@ module FmCli
     def table_body_fg_color
       :white
     end
+
+    def expected_color
+      :cyan
+    end
   end
 end

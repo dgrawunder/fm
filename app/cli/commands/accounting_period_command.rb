@@ -4,7 +4,7 @@ module FmCli
     def self.common_create_and_update_options
       method_option '--starts-at', aliases: '-s'
       method_option '--ends-at', aliases: '-e'
-      method_option '--initial-deposit', aliases: '-d'
+      method_option '--initial-deposit', aliases: '-i'
     end
 
     desc 'add NAME [OPTIONS]', 'Adds an accounting period'

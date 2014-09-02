@@ -5,6 +5,7 @@ Bundler.require(:default, ENV['FM_ENV'])
 
 require_relative 'config/application'
 
+
 require_relative 'app/core_ext/string'
 
 require_relative 'app/domain/errors'
@@ -12,8 +13,9 @@ require_relative 'app/domain/associations'
 require_relative 'app/domain/entity'
 require_relative 'app/domain/form'
 require_relative 'app/domain/entity_form'
-
 require_relative 'app/domain/util/date_util'
+require_relative 'app/domain/util/parsed_date'
+
 require_relative 'app/domain/transaction/transaction_type'
 
 require_relative 'app/repositories/base_repository'

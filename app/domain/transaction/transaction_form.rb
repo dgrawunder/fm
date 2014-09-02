@@ -1,10 +1,10 @@
 class TransactionForm < EntityForm
 
-  attribute :accounting_period_id, Integer, default: lambda { |form, attribute| PropertyRepository.find_current_accounting_period_id }
+  attribute :accounting_period_id, Integer
   attribute :category_id, Integer
   attribute :description, String
   attribute :amount, BigDecimal
-  attribute :date, Date, default: lambda { |form, attribute| Date.today }
+  attribute :date, ParsedDate, default: lambda { |form, attribute| Date.today }
   attribute :expected, Boolean, default: false
   attribute :type, TransactionType, default: TransactionType[:expense]
   attribute :fixed, Boolean, default: false
@@ -13,7 +13,7 @@ class TransactionForm < EntityForm
 
   attr_writer :accounting_period_name, :category_name
 
-  validates :description, presence: true, length: {maximum: 48}
+  validates :description, presence: true, length: {maximum: 35}
   validates :amount, presence: true, numericality: {greater_than_or_equal_to: 0}
   validates :type, inclusion: TransactionType.numbers
   validates :day_of_month, numericality: {greater_than: 0, less_than: 32}, allow_nil: true
@@ -24,10 +24,6 @@ class TransactionForm < EntityForm
   validate :validate_presence_of_date
   validate :validate_presence_of_day_of_month
   validate :validate_receivable_cannot_be_template
-
-  def date=(value)
-    value.is_a?(Date) ? super : super(DateUtil.parse_date(value))
-  end
 
   def resolve_category_id!
     if category_name.present?

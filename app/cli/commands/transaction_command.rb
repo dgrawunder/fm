@@ -6,20 +6,22 @@ module FmCli
         def self.common_create_and_update_options
           method_option 'accounting-period', aliases: '-p'
           method_option 'category', aliases: '-c'
-          method_option 'description', aliases: '-d'
-          method_option 'amount', aliases: '-a'
+          method_option 'date', aliases: '-d'
+          method_option 'expected', aliases: '-e', type: :boolean, default: false
           method_option 'type', aliases: '-t'
           method_option 'day-of-month', aliases: '-m'
         end
 
-        desc 'add -d DESCRIPTION -a AMOUNT [OPTIONS]',
+        desc 'add DESCRIPTION AMOUNT [OPTIONS]',
              "Adds a new transaction to the current or specified accounting period"
         common_create_and_update_options
         method_option 'template', aliases: '-T', type: :boolean, default: false
 
-        def add
+        def add(description, amount)
           attributes = {
-              template: options[:templates]
+              description: description,
+              amount: amount,
+              template: options[:template]
           }
           fill_attributes_with_common_create_and_update_options(attributes, options)
           attributes[:template] = options[:template] if options[:template]
@@ -30,10 +32,14 @@ module FmCli
 
         desc 'update ID [OPTIONS]', 'Updates a transaction'
         common_create_and_update_options
+        method_option 'description', aliases: '-D'
+        method_option 'amount', aliases: '-a'
 
         def update(id)
           attributes = {}
           fill_attributes_with_common_create_and_update_options(attributes, options)
+          attributes[:description] = options[:description] if options[:description]
+          attributes[:amount] = options[:amount] if options[:amount]
 
           run_interaction(:update_entity, id, attributes, :transaction)
         end
@@ -72,13 +78,23 @@ module FmCli
           run_interaction(:search_transaction, attributes)
         end
 
+        desc 'payed ID', 'Sets a transaction as not expected'
+
+        def payed(id)
+          attributes = {
+            expected: false
+          }
+
+          run_interaction(:update_entity, id, attributes, :transaction)
+        end
+
         private
 
         def fill_attributes_with_common_create_and_update_options(attributes, options)
           attributes[:accounting_period_name] = options['accounting-period'] if options['accounting-period']
           attributes[:category_name] = options[:category] if options[:category]
-          attributes[:description] = options[:description] if options[:description]
-          attributes[:amount] = options[:amount] if options[:amount]
+          attributes[:date] = options[:date] if options[:date]
+          attributes[:expected] = options[:expected] unless options[:expected].nil?
           attributes[:type] = options[:type] if options[:type]
         end
       end

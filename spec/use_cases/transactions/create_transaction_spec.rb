@@ -50,6 +50,35 @@ describe CreateTransaction do
     expect(TransactionRepository.find(actual_transaction.id).template).to be true
   end
 
+  context 'if no AccountingPeriod id or name is set' do
+
+    before :each do
+      form.accounting_period_id = nil
+      form.accounting_period_name = nil
+
+      create(:current_accounting_period_id_property, value: accounting_period.id)
+    end
+
+    it 'should take current AccountingPeriod' do
+      actual_transaction = subject.run
+      expect(TransactionRepository.find(actual_transaction.id).accounting_period_id).to eq accounting_period.id
+    end
+
+    it 'should not take current AccountingPeriod if transaction is template' do
+      form.template = true
+      form.day_of_month = 3
+      actual_transaction = subject.run
+      expect(TransactionRepository.find(actual_transaction.id).accounting_period_id).to be nil
+    end
+
+    it 'should not take current AccountingPeriod if transaction is receivable' do
+      form.type = 'rec'
+      form.category_id = nil
+      actual_transaction = subject.run
+      expect(TransactionRepository.find(actual_transaction.id).accounting_period_id).to be nil
+    end
+  end
+
   it 'should throw ValidationError when given form is invalid' do
     form.description = nil
     expect { subject.run }.to raise_error ValidationError
