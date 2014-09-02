@@ -70,7 +70,7 @@ describe SearchTransactions do
 
     it 'should order templates by day_of_month asc when form has no sort' do
       form.sort = nil
-      expect(subject.run).to eq [transactions[7], transactions[8], transactions[6]]
+      expect(subject.run).to eq [transactions[6], transactions[8], transactions[7]]
     end
   end
 end

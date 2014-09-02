@@ -2,6 +2,7 @@ module FmCli
   module TransactionIoHelper
 
     def print_transaction(transaction)
+      print 'TEMPLATE'.yellow if transaction.template?
       table do
         row do
           column('ID', :width => 20)

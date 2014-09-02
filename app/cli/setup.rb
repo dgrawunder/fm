@@ -27,3 +27,5 @@ require_relative 'commands/transaction_command'
 require_relative 'commands/balance_command'
 require_relative 'commands/report_command'
 require_relative 'cli'
+
+Colored::COLORS['white'] = 67

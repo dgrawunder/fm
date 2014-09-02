@@ -7,7 +7,6 @@ module FmCli
           method_option 'accounting-period', aliases: '-p'
           method_option 'category', aliases: '-c'
           method_option 'date', aliases: '-d'
-          method_option 'expected', aliases: '-e', type: :boolean, default: false
           method_option 'type', aliases: '-t'
           method_option 'day-of-month', aliases: '-m'
         end
@@ -16,6 +15,7 @@ module FmCli
              "Adds a new transaction to the current or specified accounting period"
         common_create_and_update_options
         method_option 'template', aliases: '-T', type: :boolean, default: false
+        method_option 'expected', aliases: '-e', type: :boolean, default: false
 
         def add(description, amount)
           attributes = {
@@ -34,6 +34,7 @@ module FmCli
         common_create_and_update_options
         method_option 'description', aliases: '-D'
         method_option 'amount', aliases: '-a'
+        method_option 'expected', aliases: '-e', type: :boolean
 
         def update(id)
           attributes = {}

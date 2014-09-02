@@ -114,8 +114,8 @@ describe FmCli::Transaction, type: :cli do
           create(:expense, accounting_period_id: accounting_period_1.id, date: 1.days.ago),
           create(:income, accounting_period_id: current_accounting_period.id),
           create(:income, accounting_period_id: current_accounting_period.id),
-          create(:expense, day_of_month: 2, template: true),
-          create(:expense, day_of_month: 1, template: true)
+          create(:expense, day_of_month: 1, template: true),
+          create(:expense, day_of_month: 2, template: true)
       ]
     end
 

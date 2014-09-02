@@ -24,7 +24,7 @@ class SearchTransactions
 
   def apply_default_sort
     if @form.template?
-      @form.sort = 'day_of_month asc'
+      @form.sort = 'day_of_month desc'
     else
       @form.sort = 'date desc'
     end

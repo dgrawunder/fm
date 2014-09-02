@@ -17,15 +17,15 @@ module FmCli
     end
 
     def answered_yes?(question)
-      @output.yes? question.colorize(:yellow) + ' (yes|No)'
+      @output.yes? question.yellow + ' (yes|No)'
     end
 
     def print_success(message)
-      print message.colorize(:green)
+      print message.green
     end
 
     def print_failure(message)
-      print message.colorize(:red)
+      print message.red
     end
 
     def print_errors(errors)

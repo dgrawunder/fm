@@ -14,7 +14,7 @@ module FmCli
           column(format_currency(balance_report.total_expected_credit_including_receivables))
         end
       end
-      print(('_'*41).colorize(:green))
+      print(('_'*41).green)
       table do
         row do
           column('BALANCE', width: 15)
@@ -22,7 +22,7 @@ module FmCli
           column(format_currency(balance_report.total_expected_balance), width: 12, align: 'right', color: 'cyan')
         end
       end
-      print(('_'*41).colorize(:blue))
+      print(('_'*41).blue)
       table do
         row do
           column('EXPENSES', width: 15)

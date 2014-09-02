@@ -29,9 +29,9 @@ describe AccountingPeriod do
     actual_accounting_period = subject.run
 
     actual_transactions = TransactionRepository.all
-    expect(actual_transactions.count).to eq 2
+    expect(actual_transactions.count).to eq 4
 
-    transaction_1 = actual_transactions.first
+    transaction_1 = actual_transactions.third
     expect(transaction_1.accounting_period_id).to eq actual_accounting_period.id
     expect(transaction_1.amount).to eq template_1.amount
     expect(transaction_1.type).to eq template_1.type

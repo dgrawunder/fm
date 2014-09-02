@@ -5,6 +5,7 @@ class CreateAccountingPeriod < CreateEntity
     TransactionRepository.templates.each do |template|
 
       transaction = template.dup
+      transaction.id = nil
       transaction.accounting_period_id = accounting_period.id
       transaction.template = false
       transaction.date = DateUtil.find_date(

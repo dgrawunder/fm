@@ -7,7 +7,7 @@ module FmCli
 
     def format_currency amount, expected: false
       formatted = format('%.2f €', amount)
-      expected ? formatted.colorize(:cyan) : formatted
+      expected ? formatted.cyan : formatted
     end
   end
 end

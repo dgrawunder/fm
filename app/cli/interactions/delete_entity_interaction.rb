@@ -15,7 +15,7 @@ module FmCli
 
         if io.answered_yes?("Should really be deleted?")
           delete_entity_use_case_class(entity_name).new(id).run
-          io.print_success("Successfully deleted #{printable_entity_name} with id='#{id}'")
+          io.print_success("Successfully deleted #{printable_entity_name} with ID #{id}")
         end
       rescue RecordNotFoundError
         io.print_failure "Couldn't find #{printable_entity_name} with id='#{id}'"
