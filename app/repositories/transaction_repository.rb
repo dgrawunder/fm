@@ -18,10 +18,6 @@ class TransactionRepository
       build_entities record_class.where(template: true)
     end
 
-    def all_by_accounting_period_id(accounting_period_id)
-      build_entities record_class.where(accounting_period_id: accounting_period_id)
-    end
-
     def search(criteria, include: [])
       includes = Array(include)
       query = record_class.all

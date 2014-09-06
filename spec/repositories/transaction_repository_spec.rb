@@ -39,18 +39,6 @@ describe TransactionRepository do
     end
   end
 
-  describe '::all_by_accounting_period_id' do
-
-    it 'should return all transactions of given AccountingPeriod-id' do
-      transaction_1 = create(:expense, accounting_period_id: 5)
-      transaction_2 = create(:income, accounting_period_id: 5)
-      create(:expense, accounting_period_id: 6)
-
-      expect(subject.all_by_accounting_period_id(5)).to eq [transaction_1, transaction_2]
-    end
-
-  end
-
   describe '::search' do
 
     it 'should return all Transaction if empty criteria given' do

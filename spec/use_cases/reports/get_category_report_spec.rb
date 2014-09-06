@@ -72,6 +72,7 @@ describe GetCategoryReport do
     it 'should return CategorySums with no Category for Transaction without a Category' do
       create(:expense, accounting_period_id: accounting_periods.second.id, amount: 11.20)
       create(:expense, accounting_period_id: accounting_periods.second.id, amount: 15)
+      create(:income, accounting_period_id: accounting_periods.second.id, amount: 12)
 
       actual_category_sums = subject.run
       expect(actual_category_sums.count).to eq 4

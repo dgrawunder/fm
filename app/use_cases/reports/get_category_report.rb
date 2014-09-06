@@ -47,7 +47,13 @@ class GetCategoryReport
     if transaction_type == TransactionType[:receivable]
       TransactionRepository.receivables
     else
-      TransactionRepository.all_by_accounting_period_id(current_accounting_period_id)
+      TransactionRepository.search(
+          TransactionSearchForm.new(
+              {
+                  accounting_period_id: current_accounting_period_id,
+                  type: transaction_type
+              }
+          ))
     end
   end
 
