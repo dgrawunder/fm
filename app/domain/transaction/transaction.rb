@@ -5,6 +5,7 @@ class Transaction < Entity
                 :expected, :fixed, :template, :type, :date, :day_of_month
   alias :expected? :expected
   alias :template? :template
+  alias :fixed? :fixed
 
   belongs_to :accounting_period
   belongs_to :category

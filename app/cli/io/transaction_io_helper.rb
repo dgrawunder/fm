@@ -2,6 +2,7 @@ module FmCli
   module TransactionIoHelper
 
     def print_transaction(transaction)
+      print 'FIXED '.yellow if transaction.fixed?
       print 'TEMPLATE'.yellow if transaction.template?
       table do
         row do
@@ -56,18 +57,20 @@ module FmCli
           else
             column('DATE', width: 12, align: 'right', color: table_header_fg_color)
           end
+          column('')
         end
         transactions.each do |transaction|
           row do
             column(transaction.id, color: table_body_fg_color)
             column(transaction.category.try(:name), color: table_body_fg_color)
             column(transaction.description, color: table_body_fg_color)
-            column(format_currency(transaction.amount), color:  transaction.expected ? expected_color : table_body_fg_color)
+            column(format_currency(transaction.amount), color: transaction.expected ? expected_color : table_body_fg_color)
             if template
               column(transaction.day_of_month, color: table_body_fg_color)
             else
               column(format_date(transaction.date), color: table_body_fg_color)
             end
+            column(transaction.fixed? ? 'F' : '', color: :yellow)
           end
         end
       end
