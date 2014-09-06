@@ -1,7 +1,7 @@
 module FmCli
   class ReportCommand < FmCli::Command
 
-    desc 'category [OPTIONS]', 'Shows categories sums'
+    desc 'category [OPTIONS]', 'Show categories sums'
     method_option 'transaction-type', aliases: '-t', default: 'expense'
 
     def category

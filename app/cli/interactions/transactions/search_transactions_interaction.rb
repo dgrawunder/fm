@@ -1,5 +1,5 @@
 module FmCli
-  class SearchTransactionInteraction < FmCli::Interaction
+  class SearchTransactionsInteraction < FmCli::Interaction
 
     def run(attributes)
       search_form = TransactionSearchForm.new(attributes.merge(templatte: false))

@@ -10,7 +10,7 @@ module FmCli
     desc 'category SUBCOMMAND [OPTIONS]', 'Manage categories'
     subcommand "category", FmCli::Category
 
-    desc 'report SUBCOMMAND [OPTIONS]', 'Shows different reports'
+    desc 'report SUBCOMMAND [OPTIONS]', 'Show different reports'
     subcommand "report", FmCli::ReportCommand
   end
 end

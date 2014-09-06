@@ -6,6 +6,8 @@ ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: "#{__dir__
 class ActiveRecordMapper
   class AccountingPeriod < ActiveRecord::Base
 
+    has_many :transactions, dependent: :destroy
+
     def self.mapped_attributes
       [:name, :starts_at, :ends_at, :initial_deposit]
     end

@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 
-require_relative '../app.rb'
-require_relative '../app/cli/setup.rb'
+# we change the working dir to project folder so that all files where bundler expects
+Dir.chdir(File.dirname(__FILE__) + '/..') do
+    require_relative '../app.rb'
+    require_relative '../app/cli/setup.rb'
+    FmCli::Cli.start(ARGV)
+end
 
-FmCli::Cli.start(ARGV)

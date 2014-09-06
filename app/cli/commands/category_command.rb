@@ -1,7 +1,7 @@
 module FmCli
   class Category < FmCli::Command
 
-    desc 'add NAME [OPTIONS]', 'Adds a category'
+    desc 'add NAME [OPTIONS]', 'Add a category'
     method_option 'transaction-type', aliases: '-t', default: 'expense'
 
     def add(name)
@@ -13,7 +13,7 @@ module FmCli
       run_interaction(:create_entity, attributes, :category)
     end
 
-    desc 'list [OPTIONS]', 'Lists all categories of given transaction type'
+    desc 'list [OPTIONS]', 'List all categories of given transaction type'
     method_option 'transaction-type', aliases: '-t', default: 'expense'
 
     def list
@@ -21,7 +21,7 @@ module FmCli
     end
 
 
-    desc 'update ID [OPTIONS]', 'Updates a category'
+    desc 'update ID [OPTIONS]', 'Update a category'
     method_option 'name', aliases: '-n'
     method_option 'transaction-type', aliases: '-t'
 
@@ -33,7 +33,7 @@ module FmCli
       run_interaction(:update_entity, id, attributes, :category)
     end
 
-    desc 'delete ID', 'Deletes a category forevermore'
+    desc 'delete ID', 'Delete a category forevermore'
 
     def delete(id)
       run_interaction(:delete_entity, id, :category)

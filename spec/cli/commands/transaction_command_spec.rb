@@ -131,20 +131,31 @@ describe FmCli::Transaction, type: :cli do
       run_command 'expenses'
     end
 
-    it 'should print all transactions of given type and specified AccountingPeriod if option -p present' do
-      expect_to_print :transactions do |actual_transactions, template|
-        expect(actual_transactions).to eq [transactions.fourth, transactions.third]
-        expect(template).to be false
+    context 'if option -p is given' do
+
+      it 'should print all transactions of given type and specified AccountingPeriod' do
+        expect_to_print :transactions do |actual_transactions, template|
+          expect(actual_transactions).to eq [transactions.fourth, transactions.third]
+          expect(template).to be false
+        end
+        run_command 'expenses', '-p', 'First'
       end
-      run_command 'expenses', '-p', 'First'
+
+      it 'should print failure message if specified AccountingPeriod could not be found' do
+        expect_to_print_failure_message
+        run_command 'expenses', '-p', 'foo'
+      end
     end
 
-    it 'should print all templates of given type if options -T is given' do
-      expect_to_print :transactions do |actual_transactions, template|
-        expect(actual_transactions).to eq [transactions[7], transactions[6]]
-        expect(template).to be true
+    context 'if options -T is given' do
+
+      it 'should print all templates of given type' do
+        expect_to_print :transactions do |actual_transactions, template|
+          expect(actual_transactions).to eq [transactions[7], transactions[6]]
+          expect(template).to be true
+        end
+        run_command 'expenses', '-T'
       end
-      run_command 'expenses', '-T'
     end
   end
 

@@ -12,7 +12,7 @@ module FmCli
         end
 
         desc 'add DESCRIPTION AMOUNT [OPTIONS]',
-             "Adds a new transaction to the current or specified accounting period"
+             "Add a new transaction to the current or specified accounting period"
         common_create_and_update_options
         method_option 'template', aliases: '-T', type: :boolean, default: false
         method_option 'expected', aliases: '-e', type: :boolean, default: false
@@ -30,7 +30,7 @@ module FmCli
           run_interaction(:create_entity, attributes, :transaction)
         end
 
-        desc 'update ID [OPTIONS]', 'Updates a transaction'
+        desc 'update ID [OPTIONS]', 'Update a transaction'
         common_create_and_update_options
         method_option 'description', aliases: '-D'
         method_option 'amount', aliases: '-a'
@@ -54,7 +54,7 @@ module FmCli
         # Creates a listing command for every transaction type e.g. expenses
         TransactionType::TYPES.each do |type_name, type_number|
           desc "#{type_name.to_s.pluralize} [OPTIONS]",
-               "Lists all #{type_name.to_s.pluralize} to the current or specified accounting period."
+               "List all #{type_name.to_s.pluralize} to the current or specified accounting period"
           method_option 'accounting-period', aliases: '-p'
           method_option :templates, aliases: '-T', type: :boolean, default: false
 
@@ -70,16 +70,16 @@ module FmCli
           end
         end
 
-        desc 'search SEARCH-TERM', 'Searches for current transactions'
+        desc 'search SEARCH-TERM', 'Search for current transactions'
 
         def search(search_term)
           attributes = {
               term: search_term
           }
-          run_interaction(:search_transaction, attributes)
+          run_interaction(:search_transactions, attributes)
         end
 
-        desc 'payed ID', 'Sets a transaction as not expected'
+        desc 'payed ID', 'Set a transaction as not expected'
 
         def payed(id)
           attributes = {

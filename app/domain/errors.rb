@@ -17,3 +17,4 @@ end
 NoCurrentAccountingPeriodError = Class.new StandardError
 RecordNotFoundError = Class.new StandardError
 UnknownTransactionTypeError = Class.new StandardError
+UnknownAccountingPeriodError = Class.new StandardError

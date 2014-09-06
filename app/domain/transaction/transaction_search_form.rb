@@ -10,6 +10,6 @@ class TransactionSearchForm < Form
 
   def accounting_period_name=(name)
     super(name)
-    self.accounting_period_id = AccountingPeriodRepository.search_id_by_name(name)
+    self.accounting_period_id = AccountingPeriodRepository.search_id_by_name(name) || raise(UnknownAccountingPeriodError)
   end
 end
