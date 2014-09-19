@@ -11,18 +11,19 @@ module FmCli
           method_option 'day-of-month', aliases: '-m'
         end
 
-        desc 'add DESCRIPTION AMOUNT [OPTIONS]',
+        desc 'add DESCRIPTION AMOUNT [CATEGORY] [OPTIONS]',
              "Add a new transaction to the current or specified accounting period"
         common_create_and_update_options
         method_option 'template', aliases: '-T', type: :boolean, default: false
         method_option 'fixed', aliases: '-f', type: :boolean, default: false
         method_option 'expected', aliases: '-e', type: :boolean, default: false
 
-        def add(description, amount)
+        def add(description, amount, category=nil)
           attributes = {
               description: description,
               amount: amount,
-              template: options[:template]
+              template: options[:template],
+              category_name: category
           }
           fill_attributes_with_common_create_and_update_options(attributes, options)
           attributes[:template] = options[:template] if options[:template]
@@ -56,7 +57,7 @@ module FmCli
         # Creates a listing command for every transaction type e.g. expenses
         TransactionType::TYPES.each do |type_name, type_number|
           desc "#{type_name.to_s.pluralize} [OPTIONS]",
-               "List all #{type_name.to_s.pluralize} to the current or specified accounting period"
+               "List all #{type_name.to_s.pluralize} of current or specified accounting period"
           method_option 'accounting-period', aliases: '-p'
           method_option :templates, aliases: '-T', type: :boolean, default: false
 
