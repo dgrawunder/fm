@@ -2,6 +2,6 @@
 bin
 
 database.yml
-log/*
+log/*.log
 tmp/*
 *.db
