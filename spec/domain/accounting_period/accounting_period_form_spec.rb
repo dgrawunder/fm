@@ -1,10 +1,10 @@
 describe AccountingPeriodForm do
 
-  it { should validate_presence_of :name }
-  it { should ensure_length_of(:name).is_at_most(32) }
-  it { should validate_presence_of :starts_at }
-  it { should validate_presence_of :ends_at }
-  it { should validate_presence_of :initial_deposit }
+  it { is_expected.to validate_presence_of :name }
+  it { is_expected.to ensure_length_of(:name).is_at_most(32) }
+  it { is_expected.to validate_presence_of :starts_at }
+  it { is_expected.to validate_presence_of :ends_at }
+  it { is_expected.to validate_presence_of :initial_deposit }
 
   it 'should ensure that name is unique' do
     subject.entity_id = 3
@@ -12,7 +12,7 @@ describe AccountingPeriodForm do
     expect(AccountingPeriodRepository).to receive(:unique?).
                                               with(3, name: subject.name).and_return(false)
 
-    expect(subject.valid?).to be_false
+    expect(subject.valid?).to be false
     expect(subject.errors[:name]).to include I18n.t('errors.messages.taken')
   end
 

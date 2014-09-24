@@ -6,17 +6,17 @@ describe CategoryRepository do
 
     it 'should return true when Categories with given id and transaction_type exists' do
       category = create(:expense_category)
-      expect(subject.exists_by_id_and_transaction_type?(category.id, TransactionType[:expense])).to be_true
+      expect(subject.exists_by_id_and_transaction_type?(category.id, TransactionType[:expense])).to be true
     end
 
     it 'should return false when Category with given id does not exist' do
       category = create(:expense_category)
-      expect(subject.exists_by_id_and_transaction_type?(category.id + 1, TransactionType[:expense])).to be_false
+      expect(subject.exists_by_id_and_transaction_type?(category.id + 1, TransactionType[:expense])).to be false
     end
 
     it 'should return false when Category with given transaction_type does not exist' do
       category = create(:expense_category)
-      expect(subject.exists_by_id_and_transaction_type?(category.id, TransactionType[:income])).to be_false
+      expect(subject.exists_by_id_and_transaction_type?(category.id, TransactionType[:income])).to be false
     end
   end
 

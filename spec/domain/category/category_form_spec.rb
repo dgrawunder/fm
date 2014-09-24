@@ -1,8 +1,8 @@
 describe CategoryForm do
 
-  it { should validate_presence_of :name }
-  it { should ensure_length_of(:name).is_at_most(20) }
-  it { should ensure_inclusion_of(:transaction_type).in_array(TransactionType.numbers) }
+  it { is_expected.to validate_presence_of :name }
+  it { is_expected.to ensure_length_of(:name).is_at_most(20) }
+  it { is_expected.to validate_inclusion_of(:transaction_type).in_array(TransactionType.numbers) }
 
   it 'should ensure that name is unique for given TransactionType' do
     subject.entity_id = 3
@@ -11,14 +11,14 @@ describe CategoryForm do
     expect(CategoryRepository).to(
         receive(:unique?).with(3, name: subject.name, transaction_type: subject.transaction_type).and_return(false))
 
-    expect(subject.valid?).to be_false
+    expect(subject.valid?).to be false
     expect(subject.errors[:name]).to include I18n.t('errors.messages.taken')
   end
 
   it 'should ensure that no associated Transaction exists when transaction-type changes' do
     subject.entity_id = 3
     expect(TransactionRepository).to receive(:exists?).with(category_id: 3).and_return(true)
-    expect(subject.valid?).to be_false
+    expect(subject.valid?).to be false
     expect(subject.errors[:transaction_type]).not_to be_empty
   end
 

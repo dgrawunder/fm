@@ -3,16 +3,16 @@ describe TransactionForm do
 
   describe 'validation' do
 
-    it { should validate_presence_of :description }
-    it { should ensure_length_of(:description).is_at_most(35) }
-    it { should validate_presence_of :amount }
-    it { should ensure_inclusion_of(:type).in_array(TransactionType.numbers) }
-    it { should validate_numericality_of(:amount).is_greater_than_or_equal_to(0) }
-    it { should validate_numericality_of(:day_of_month).is_greater_than(0).is_less_than(32).allow_nil }
+    it { is_expected.to validate_presence_of :description }
+    it { is_expected.to ensure_length_of(:description).is_at_most(35) }
+    it { is_expected.to validate_presence_of :amount }
+    it { is_expected.to validate_inclusion_of(:type).in_array(TransactionType.numbers) }
+    it { is_expected.to validate_numericality_of(:amount).is_greater_than_or_equal_to(0) }
+    it { is_expected.to validate_numericality_of(:day_of_month).is_greater_than(0).is_less_than(32).allow_nil }
 
     context 'when not being a template' do
 
-      it { should validate_presence_of :date }
+      it { is_expected.to validate_presence_of :date }
 
       it 'must not have day_of_month' do
         subject.day_of_month = 1
@@ -30,7 +30,7 @@ describe TransactionForm do
         expect(subject.errors[:accounting_period_id]).to include I18n.t('errors.messages.present')
       end
 
-      it { should validate_presence_of :day_of_month }
+      it { is_expected.to validate_presence_of :day_of_month }
 
       it 'must not have date' do
         subject.date = Date.new
@@ -40,7 +40,7 @@ describe TransactionForm do
     end
 
     context 'when not being a template or a receivable' do
-      it { should validate_presence_of :accounting_period_id }
+      it { is_expected.to validate_presence_of :accounting_period_id }
     end
 
     context 'when being a receivable' do
@@ -97,21 +97,21 @@ describe TransactionForm do
   describe '#expected' do
 
     it 'should have default value' do
-      expect(subject.expected).to be_false
+      expect(subject.expected).to be false
     end
   end
 
   describe '#fixed' do
 
     it 'should have default value' do
-      expect(subject.fixed).to be_false
+      expect(subject.fixed).to be false
     end
   end
 
   describe '#template' do
 
     it 'should have default value' do
-      expect(subject.template).to be_false
+      expect(subject.template).to be false
     end
   end
 

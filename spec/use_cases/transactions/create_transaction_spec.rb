@@ -28,7 +28,7 @@ describe CreateTransaction do
     expect(stored_transaction.amount).to eq form.amount
     expect(stored_transaction.date).to eq Date.new(Time.now.year, 4, 5)
     expect(stored_transaction.type).to eq TransactionType[:income]
-    expect(stored_transaction.expected).to be_true
+    expect(stored_transaction.expected).to be true
   end
 
   it 'should resolve AccountingPeriod-Id and Category-Id' do
