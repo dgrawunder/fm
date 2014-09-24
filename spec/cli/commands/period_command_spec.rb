@@ -1,6 +1,6 @@
 require 'cli_spec_helper'
 
-describe FmCli::AccountingPeriod, type: :cli do
+describe FmCli::Period, type: :cli do
 
   describe '#add' do
 

@@ -5,7 +5,7 @@ module FmCli
     include BalanceCommand
 
     desc 'period SUBCOMMAND [OPTIONS]', 'Manage accounting periods'
-    subcommand "period", FmCli::AccountingPeriod
+    subcommand "period", FmCli::Period
 
     desc 'category SUBCOMMAND [OPTIONS]', 'Manage categories'
     subcommand "category", FmCli::Category
