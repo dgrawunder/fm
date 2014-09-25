@@ -14,6 +14,13 @@ gem 'equalizer'
 gem 'thor', require: false
 gem 'command_line_reporter', require: false
 
+gem 'sinatra', require: false
+gem 'active_model_serializers', require: false
+
+group :development do
+  gem 'sinatra-contrib', require: false
+end
+
 group :test do
   gem 'rspec'
   gem 'guard-rspec'

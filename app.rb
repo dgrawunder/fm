@@ -72,5 +72,3 @@ require_relative 'app/use_cases/reports/get_category_report'
 
 require_relative 'db/initialize'
 
-
-
