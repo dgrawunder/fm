@@ -12,5 +12,11 @@ module FmCli
 
     desc 'report SUBCOMMAND [OPTIONS]', 'Show different reports'
     subcommand "report", FmCli::ReportCommand
+
+    desc 'version', 'Prints version info'
+    def version
+      require './config/version'
+      io.print("FM Version #{::Fm.version}")
+    end
   end
 end
