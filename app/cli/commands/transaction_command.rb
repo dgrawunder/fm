@@ -74,6 +74,7 @@ module FmCli
         end
 
         desc 'search SEARCH-TERM', 'Search for current transactions'
+        method_option 'type', aliases: '-t'
         method_option 'expected', aliases: '-e', type: :boolean
 
         def search(search_term=nil)
@@ -81,6 +82,7 @@ module FmCli
               term: search_term
           }
           attributes[:expected] = options[:expected] unless options[:expected].nil?
+          attributes[:type] = options[:type] if options[:type]
           run_interaction(:search_transactions, attributes)
         end
 
