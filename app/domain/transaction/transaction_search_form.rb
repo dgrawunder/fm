@@ -4,8 +4,10 @@ class TransactionSearchForm < Form
   attribute :accounting_period_name, String
   attribute :type, TransactionType
   attribute :template, Boolean
-  attribute :term
   alias template template?
+  attribute :expected, Boolean
+  alias expected expected?
+  attribute :term
   attribute :sort
 
   def accounting_period_name=(name)

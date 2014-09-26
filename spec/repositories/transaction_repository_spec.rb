@@ -102,6 +102,59 @@ describe TransactionRepository do
         expect(subject.search(criteria)).to eq [transaction_1]
       end
     end
-  end
 
+    context 'if expected present' do
+
+      context 'if expected is true' do
+
+        it 'should return only expected transactions' do
+          transaction_1 = create(:expense, expected: true)
+          transaction_2 = create(:expense, expected: true)
+          create(:expense, expected: false)
+
+          criteria = TransactionSearchForm.new(expected: true)
+          expect(subject.search(criteria)).to eq [transaction_1, transaction_2]
+        end
+      end
+
+      context 'if expected is false' do
+
+        it 'should return all transaction where expected is nil or false' do
+          transaction_1 = create(:expense, expected: false)
+          transaction_2 = create(:expense, expected: nil)
+          create(:expense, expected: true)
+
+          criteria = TransactionSearchForm.new(expected: false)
+          expect(subject.search(criteria)).to eq [transaction_1, transaction_2]
+        end
+      end
+    end
+
+    context 'if template present' do
+
+      context 'if template is true' do
+
+        it 'should return only template transactions' do
+          transaction_1 = create(:template)
+          transaction_2 = create(:template)
+          create(:expense)
+
+          criteria = TransactionSearchForm.new(template: true)
+          expect(subject.search(criteria)).to eq [transaction_1, transaction_2]
+        end
+      end
+
+      context 'if template is false' do
+
+        it 'should return all transaction where template is nil or false' do
+          transaction_1 = create(:expense, template: false)
+          transaction_2 = create(:expense, template: nil)
+          create(:template)
+
+          criteria = TransactionSearchForm.new(template: false)
+          expect(subject.search(criteria)).to eq [transaction_1, transaction_2]
+        end
+      end
+    end
+  end
 end

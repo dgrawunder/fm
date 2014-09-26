@@ -23,7 +23,14 @@ class TransactionRepository
       query = record_class.all
       query = query.where(accounting_period_id: criteria.accounting_period_id) if criteria.accounting_period_id.present?
       query = query.where(type: criteria.type) if criteria.type.present?
-      query = query.where(template: criteria.template) unless criteria.template.nil?
+      unless criteria.template.nil?
+        query = query.where(template: criteria.template?) if criteria.template?
+        query = query.where(template: [criteria.template?, nil]) unless criteria.template?
+      end
+      unless criteria.expected.nil?
+        query = query.where(expected: criteria.expected?) if criteria.expected?
+        query = query.where(expected: [criteria.expected?, nil]) unless criteria.expected?
+      end
       if criteria.term.present?
         query = query.
             joins('LEFT OUTER JOIN categories ON categories.id = transactions.category_id').

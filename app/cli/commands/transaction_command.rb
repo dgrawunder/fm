@@ -74,11 +74,13 @@ module FmCli
         end
 
         desc 'search SEARCH-TERM', 'Search for current transactions'
+        method_option 'expected', aliases: '-e', type: :boolean
 
-        def search(search_term)
+        def search(search_term=nil)
           attributes = {
               term: search_term
           }
+          attributes[:expected] = options[:expected] unless options[:expected].nil?
           run_interaction(:search_transactions, attributes)
         end
 
@@ -86,7 +88,7 @@ module FmCli
 
         def payed(id)
           attributes = {
-            expected: false
+              expected: false
           }
 
           run_interaction(:update_entity, id, attributes, :transaction)
