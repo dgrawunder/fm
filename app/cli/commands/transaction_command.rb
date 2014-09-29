@@ -105,6 +105,7 @@ module FmCli
           attributes[:expected] = options[:expected] unless options[:expected].nil?
           attributes[:type] = options[:type] if options[:type]
           attributes[:fixed] = options[:fixed] if options[:fixed]
+          attributes[:day_of_month] = options['day-of-month'] if options['day-of-month']
         end
       end
     end
