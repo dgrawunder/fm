@@ -35,7 +35,7 @@ GEM
     equalizer (0.0.9)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
-    ffi (1.9.4)
+    ffi (1.9.6)
     forgery (0.6.0)
     formatador (0.2.5)
     guard (2.6.1)

@@ -8,7 +8,7 @@ module FmCli
         only_currents = !(form.template? || form.accounting_period_name.present?)
         transactions = SearchTransactions.new(
             form, only_currents: only_currents).run
-        io.print_transactions(transactions, attributes[:template])
+        io.print_transactions(transactions, template: attributes[:template])
       rescue UnknownAccountingPeriodError
         io.print_failure "Couldn't find accounting period containing #{accounting_period_name}'"
       end

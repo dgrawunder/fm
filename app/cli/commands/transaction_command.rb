@@ -59,6 +59,7 @@ module FmCli
           desc "#{type_name.to_s.pluralize} [OPTIONS]",
                "List all #{type_name.to_s.pluralize} of current or specified accounting period"
           method_option 'accounting-period', aliases: '-p'
+          method_option 'expected', aliases: '-e', type: :boolean
           method_option :templates, aliases: '-T', type: :boolean, default: false
 
           define_method type_name.to_s.pluralize do
@@ -69,6 +70,7 @@ module FmCli
             unless options[:templates]
               attributes[:accounting_period_name] = options['accounting-period'] if options['accounting-period']
             end
+            attributes[:expected] = options[:expected] unless options[:expected].nil?
             run_interaction(:list_transaction, attributes)
           end
         end

@@ -45,7 +45,7 @@ module FmCli
       end
     end
 
-    def print_transactions(transactions, template)
+    def print_transactions(transactions, template: false, display_type: false)
       table(:border => false) do
         row do
           column('ID', width: 8, color: table_header_fg_color)
@@ -57,7 +57,10 @@ module FmCli
           else
             column('DATE', width: 12, align: 'right', color: table_header_fg_color)
           end
-          column('')
+          if display_type
+            column('', width: 3, color: table_header_fg_color)
+          end
+          column('', width: 1)
         end
         transactions.each do |transaction|
           row do
@@ -69,6 +72,9 @@ module FmCli
               column(transaction.day_of_month, color: table_body_fg_color)
             else
               column(format_date(transaction.date), color: table_body_fg_color)
+            end
+            if display_type
+              column(TransactionType.find_name(transaction.type)[0..2].capitalize, color: :yellow)
             end
             column(transaction.fixed? ? 'F' : '', color: :yellow)
           end

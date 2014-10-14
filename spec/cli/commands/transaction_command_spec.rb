@@ -124,9 +124,8 @@ describe FmCli::Transaction, type: :cli do
     end
 
     it 'should print all current transactions of given type' do
-      expect_to_print :transactions do |actual_transactions, template|
+      expect_to_print :transactions do |actual_transactions|
         expect(actual_transactions).to eq [transactions.second, transactions.first]
-        expect(template).to be false
       end
       run_command 'expenses'
     end
@@ -134,9 +133,8 @@ describe FmCli::Transaction, type: :cli do
     context 'if option -p is given' do
 
       it 'should print all transactions of given type and specified AccountingPeriod' do
-        expect_to_print :transactions do |actual_transactions, template|
+        expect_to_print :transactions do |actual_transactions|
           expect(actual_transactions).to eq [transactions.fourth, transactions.third]
-          expect(template).to be false
         end
         run_command 'expenses', '-p', 'First'
       end
@@ -150,9 +148,8 @@ describe FmCli::Transaction, type: :cli do
     context 'if options -T is given' do
 
       it 'should print all templates of given type' do
-        expect_to_print :transactions do |actual_transactions, template|
+        expect_to_print :transactions do |actual_transactions|
           expect(actual_transactions).to eq [transactions[7], transactions[6]]
-          expect(template).to be true
         end
         run_command 'expenses', '-T'
       end
@@ -175,9 +172,8 @@ describe FmCli::Transaction, type: :cli do
     end
 
     it 'should search for current transactions' do
-      expect_to_print :transactions do |actual_transactions, template|
+      expect_to_print :transactions do |actual_transactions|
         expect(actual_transactions).to eq [transactions.first, transactions.second]
-        expect(template).to be false
       end
       run_command 'search', 'Food'
     end
