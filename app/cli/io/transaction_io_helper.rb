@@ -40,7 +40,8 @@ module FmCli
         end
         row do
           column('TYPE')
-          column(TransactionType.find_name(transaction.type).to_s.capitalize)
+          column(TransactionType.find_name(transaction.type).to_s.capitalize,
+                 color: transaction_type_color(transaction.type))
         end
       end
     end
@@ -74,16 +75,23 @@ module FmCli
               column(format_date(transaction.date), color: table_body_fg_color)
             end
             if display_type
-              column(TransactionType.find_name(transaction.type)[0..2].capitalize, color: :yellow)
+              column(TransactionType.find_name(transaction.type)[0..2].capitalize,
+                     color: transaction_type_color(transaction.type))
             end
             column(transaction.fixed? ? 'F' : '', color: :yellow)
           end
         end
       end
     end
+
+    def transaction_type_color(type)
+      if type == TransactionType[:expense]
+        :red
+      elsif type == TransactionType[:income]
+        :green
+      else
+        :yellow
+      end
+    end
   end
 end
-
-
-
-
