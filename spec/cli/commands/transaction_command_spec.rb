@@ -43,7 +43,7 @@ describe FmCli::Transaction, type: :cli do
       expect_to_print_errors
 
       run_command 'add',
-                  '-p', 'First Accounting Period', '-c', 'category 1',
+                  '-p', 'First Accounting Period',
                   '-D', 'description'
 
       expect(TransactionRepository.count).to eq 0

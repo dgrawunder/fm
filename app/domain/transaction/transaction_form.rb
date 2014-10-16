@@ -28,6 +28,7 @@ class TransactionForm < EntityForm
   def resolve_category_id!
     if category_name.present?
       self.category_id = CategoryRepository.search_id_by_name_and_transaction_type(category_name, type)
+      raise UnknownCategoryError, "Couldn't find category with given name" if category_id.nil?
     end
   end
 

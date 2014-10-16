@@ -133,6 +133,14 @@ describe TransactionForm do
         subject.resolve_category_id!
         expect(subject.category_id).to eq 3
       end
+
+      it 'should throw exception when no category is found' do
+        expect(CategoryRepository).to receive(:search_id_by_name_and_transaction_type).
+                                          with('Cate 7', subject.type).and_return(nil)
+
+        subject.category_name = 'Cate 7'
+        expect { subject.resolve_category_id! }.to raise_error UnknownCategoryError
+      end
     end
 
     context 'when category_name is not given' do
