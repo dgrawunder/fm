@@ -14,7 +14,7 @@ class TransactionForm < EntityForm
   attr_writer :accounting_period_name, :category_name
 
   validates :description, presence: true, length: {maximum: 35}
-  validates :amount, presence: true, numericality: {greater_than_or_equal_to: 0}
+  validates :amount, presence: true, numericality: true #{greater_than_or_equal_to: 0}
   validates :type, inclusion: TransactionType.numbers
   validates :day_of_month, numericality: {greater_than: 0, less_than: 32}, allow_nil: true
 

@@ -12,7 +12,7 @@ module FmCli
         end
 
         desc 'add DESCRIPTION AMOUNT [CATEGORY] [OPTIONS]',
-             "Add a new transaction to the current or specified accounting period"
+             'Add a new transaction to the current or specified accounting period'
         common_create_and_update_options
         method_option 'template', aliases: '-T', type: :boolean, default: false
         method_option 'fixed', aliases: '-f', type: :boolean, default: false
@@ -104,10 +104,10 @@ module FmCli
           attributes[:accounting_period_name] = options['accounting-period'] if options['accounting-period']
           attributes[:category_name] = options[:category] if options[:category]
           attributes[:date] = options[:date] if options[:date]
-          attributes[:expected] = options[:expected] unless options[:expected].nil?
           attributes[:type] = options[:type] if options[:type]
-          attributes[:fixed] = options[:fixed] if options[:fixed]
           attributes[:day_of_month] = options['day-of-month'] if options['day-of-month']
+          attributes[:expected] = options[:expected] unless options[:expected].nil?
+          attributes[:fixed] = options[:fixed] unless options[:fixed].nil?
         end
       end
     end

@@ -7,7 +7,7 @@ describe TransactionForm do
     it { is_expected.to ensure_length_of(:description).is_at_most(35) }
     it { is_expected.to validate_presence_of :amount }
     it { is_expected.to validate_inclusion_of(:type).in_array(TransactionType.numbers) }
-    it { is_expected.to validate_numericality_of(:amount).is_greater_than_or_equal_to(0) }
+    it { is_expected.to validate_numericality_of(:amount) }
     it { is_expected.to validate_numericality_of(:day_of_month).is_greater_than(0).is_less_than(32).allow_nil }
 
     context 'when not being a template' do
