@@ -21,21 +21,29 @@ module DateUtil
   end
 
   def parse_date value
-    return nil unless value.is_a?(String)
-    
-    begin
-      case value.split('.').size
-        when 1
-          Date.strptime(value, '%d')
-        when 2
-          Date.strptime(value, '%d.%m')
-        when 3
-          Date.strptime(value, '%d.%m.%Y')
-        else
-          nil
+    return nil if !value.is_a?(String) || value.blank?
+
+    if 'today'.start_with?(value)
+      Date.today
+    elsif 'yesterday'.start_with?(value)
+      Date.yesterday
+    elsif 'tomorrow'.start_with?(value)
+      Date.tomorrow
+    else
+      begin
+        case value.split('.').size
+          when 1
+            Date.strptime(value, '%d')
+          when 2
+            Date.strptime(value, '%d.%m')
+          when 3
+            Date.strptime(value, '%d.%m.%Y')
+          else
+            nil
+        end
+      rescue ArgumentError
+        nil
       end
-    rescue ArgumentError
-      nil
     end
   end
 end

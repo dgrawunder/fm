@@ -59,6 +59,33 @@ describe DateUtil do
       end
     end
 
+    context 'value starts with a string the word today starts with' do
+
+      it 'should return current date' do
+        expected_date = Date.new(2014,10,26)
+        expect(Date).to receive(:today).and_return(expected_date)
+        expect(subject.parse_date('to')).to eq expected_date
+      end
+    end
+
+    context 'value starts with a string the word yesterday starts with' do
+
+      it 'should return current date' do
+        expected_date = Date.new(2014,10,25)
+        expect(Date).to receive(:yesterday).and_return(expected_date)
+        expect(subject.parse_date('yes')).to eq expected_date
+      end
+    end
+
+    context 'value starts with a string the word tomorrow starts with' do
+
+      it 'should return current date' do
+        expected_date = Date.new(2014,10,25)
+        expect(Date).to receive(:tomorrow).and_return(expected_date)
+        expect(subject.parse_date('tom')).to eq expected_date
+      end
+    end
+
     context 'value is contains no proper value' do
 
       it 'should return nil' do
