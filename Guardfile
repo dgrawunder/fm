@@ -1,7 +1,7 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
-notification :notifysend, t: 1000
+notification :terminal_notifier, t: 100
 
 guard :rspec, cmd: 'bundle exec rspec', failed_mode: :none, notification: true do
   watch(%r{^spec/.+_spec\.rb$})
