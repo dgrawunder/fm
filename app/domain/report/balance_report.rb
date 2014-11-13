@@ -54,9 +54,15 @@ class BalanceReport
     end
   end
 
+  def credit_including_receivables
+    @credit_including_receivables ||= begin
+      credit + receivables
+    end
+  end
+
   def total_expected_credit_including_receivables
     @total_expected_credit_including_receivables ||= begin
-      @total_expected_credit + receivables
+      total_expected_credit + total_expected_receivables
     end
   end
 
