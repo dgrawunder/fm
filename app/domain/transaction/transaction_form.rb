@@ -23,7 +23,6 @@ class TransactionForm < EntityForm
   validate :validate_existence_of_category_id
   validate :validate_presence_of_date
   validate :validate_presence_of_day_of_month
-  validate :validate_receivable_cannot_be_template
 
   def resolve_category_id!
     if category_name.present?
@@ -45,7 +44,7 @@ class TransactionForm < EntityForm
   private
 
   def validate_presence_of_accounting_period
-    if template? || type == TransactionType[:receivable]
+    if template?
       errors.add :accounting_period_id, I18n.t('errors.messages.present') if accounting_period_id.present?
     else
       errors.add :accounting_period_id, I18n.t('errors.messages.blank') if accounting_period_id.nil?
@@ -80,12 +79,6 @@ class TransactionForm < EntityForm
       errors.add :day_of_month, I18n.t('errors.messages.blank') if day_of_month.nil?
     else
       errors.add :day_of_month, I18n.t('errors.messages.present') if day_of_month.present?
-    end
-  end
-
-  def validate_receivable_cannot_be_template
-    if template? && type == TransactionType[:receivable]
-      errors.add :template, 'cannot be a receivable'
     end
   end
 end

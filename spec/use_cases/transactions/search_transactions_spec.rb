@@ -50,11 +50,6 @@ describe SearchTransactions do
       it 'should search only for current transactions' do
         expect(subject.run).to eq [transactions.first, transactions.third]
       end
-
-      it 'should search for all receivables if requested' do
-        form.type = 'rec'
-        expect(subject.run).to eq [transactions[4], transactions[5]]
-      end
     end
   end
 

@@ -29,10 +29,11 @@ describe BalanceReport do
     create(:outpayment, accounting_period_id: accounting_period.id, amount: 15.50, expected: true)
     create(:outpayment, accounting_period_id: accounting_period.id + 1)
     create(:outpayment, template: true)
-    create(:receivable, amount: 20)
-    create(:receivable, amount: 25.50)
-    create(:receivable, amount: 30, expected: true)
-    create(:receivable, amount: 10, expected: true)
+    create(:receivable, accounting_period_id: accounting_period.id, amount: 20)
+    create(:receivable, accounting_period_id: accounting_period.id, amount: 25.50)
+    create(:receivable, accounting_period_id: accounting_period.id, amount: 30, expected: true)
+    create(:receivable, accounting_period_id: accounting_period.id, amount: 10, expected: true)
+    create(:receivable, amount: 25)
     create(:receivable, template: true)
   end
 
@@ -40,7 +41,6 @@ describe BalanceReport do
 
   it 'should return BalanceReport for AccountingPeriod of given id' do
     transactions
-
     expect(subject.accounting_period).to eq accounting_period
     expect(subject.incomes).to eq 5145
     expect(subject.total_expected_incomes).to eq 5283.45
@@ -58,7 +58,6 @@ describe BalanceReport do
     expect(subject.total_expected_credit).to eq 7602.57
     expect(subject.credit_including_receivables).to eq 7503.49
     expect(subject.total_expected_credit_including_receivables).to eq 7688.07
-    # expect(subject.total_expected_credit_including_receivables).to eq 7648.07
   end
 
 end

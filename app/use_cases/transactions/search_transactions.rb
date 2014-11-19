@@ -19,7 +19,7 @@ class SearchTransactions
   private
 
   def search_for_currents?
-    @only_currents && @form.type != TransactionType[:receivable]
+    @only_currents
   end
 
   def apply_default_sort

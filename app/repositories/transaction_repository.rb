@@ -3,15 +3,11 @@ class TransactionRepository
 
   class << self
 
-    # Defines method like expenses_by_accounting_period_id for every TransactionType except revenues
-    TransactionType::TYPES.except(:receivable).each do |name, number|
+    # Defines method like expenses_by_accounting_period_id for every TransactionType
+    TransactionType::TYPES.each do |name, number|
       define_method("#{name.to_s.pluralize}_by_accounting_period_id") do |accounting_period_id|
         build_entities record_class.where(accounting_period_id: accounting_period_id, type: number)
       end
-    end
-
-    def receivables
-      build_entities record_class.where(type: TransactionType[:receivable], template: false)
     end
 
     def templates

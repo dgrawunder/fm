@@ -39,17 +39,8 @@ describe TransactionForm do
       end
     end
 
-    context 'when not being a template or a receivable' do
+    context 'when not being a template' do
       it { is_expected.to validate_presence_of :accounting_period_id }
-    end
-
-    context 'when being a receivable' do
-      subject { TransactionForm.new(type: TransactionType[:receivable]) }
-      it 'must not have accounting_period_id' do
-        subject.accounting_period_id = 7
-        subject.valid?
-        expect(subject.errors[:accounting_period_id]).to include I18n.t('errors.messages.present')
-      end
     end
 
     it 'should ensure that Category with given id exists for given transaction_type' do
@@ -67,13 +58,6 @@ describe TransactionForm do
                                                 with(subject.accounting_period_id).and_return(false)
       subject.valid?
       expect(subject.errors[:accounting_period_id]).to include "doesn't exists"
-    end
-
-    it 'should en sure that receivable cannot be template' do
-      subject.template = true
-      subject.type = TransactionType[:receivable]
-      subject.valid?
-      expect(subject.errors[:template]).to include 'cannot be a receivable'
     end
   end
 

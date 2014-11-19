@@ -69,11 +69,7 @@ class BalanceReport
   private
 
   def get_transaction_sums(type_name)
-    if type_name == :receivable
-      transactions = TransactionRepository.receivables
-    else
-      transactions = TransactionRepository.public_send("#{type_name.to_s.pluralize}_by_accounting_period_id", accounting_period.id)
-    end
+    transactions = TransactionRepository.public_send("#{type_name.to_s.pluralize}_by_accounting_period_id", accounting_period.id)
     TransactionSums.create(transactions)
   end
 end

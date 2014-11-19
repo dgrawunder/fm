@@ -25,11 +25,12 @@ FactoryGirl.define do
       factory :inpayment do
         type TransactionType[:inpayment]
       end
+
+      factory :receivable do
+        type TransactionType[:receivable]
+      end
     end
 
-    factory :receivable do
-      type TransactionType[:receivable]
-    end
 
     factory :template do
       template true

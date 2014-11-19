@@ -70,13 +70,6 @@ describe CreateTransaction do
       actual_transaction = subject.run
       expect(TransactionRepository.find(actual_transaction.id).accounting_period_id).to be nil
     end
-
-    it 'should not take current AccountingPeriod if transaction is receivable' do
-      form.type = 'rec'
-      form.category_id = nil
-      actual_transaction = subject.run
-      expect(TransactionRepository.find(actual_transaction.id).accounting_period_id).to be nil
-    end
   end
 
   it 'should throw ValidationError when given form is invalid' do

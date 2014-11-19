@@ -4,7 +4,7 @@ class CreateTransaction < CreateEntity
     if form.template?
       form.accounting_period_id = nil
       form.date = nil
-    elsif form.type != TransactionType[:receivable]
+    else
       form.resolve_accounting_period_id!
 
       if form.accounting_period_id.nil?

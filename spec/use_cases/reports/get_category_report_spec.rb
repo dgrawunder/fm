@@ -29,10 +29,10 @@ describe GetCategoryReport do
         create(:expense, category_id: categories.first.id, amount: 37.50, template: true),
         create(:expense, accounting_period_id: accounting_periods.first.id, category_id: categories.second.id, amount: 55),
         create(:income, accounting_period_id: accounting_periods.second.id, category_id: categories.fifth.id, amount: 300),
-        create(:receivable, category_id: categories[4].id, amount: 56.80),
-        create(:receivable, category_id: categories[4].id, amount: 87.90),
-        create(:receivable, category_id: categories[5].id, amount: 87),
-        create(:receivable, category_id: categories[5].id, template: true)
+        create(:receivable, accounting_period_id: accounting_periods.second.id, category_id: categories[4].id, amount: 56.80),
+        create(:receivable, accounting_period_id: accounting_periods.second.id, category_id: categories[4].id, amount: 87.90),
+        create(:receivable, accounting_period_id: accounting_periods.second.id, category_id: categories[5].id, amount: 87),
+        create(:receivable,  category_id: categories[5].id, template: true)
     ]
   end
 
