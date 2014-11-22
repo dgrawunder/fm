@@ -6,6 +6,7 @@ FactoryGirl.define do
     fixed { Forgery(:basic).boolean }
     date { Forgery(:date).date(past: true, future: false, max_delta: 30) }
     type TransactionType[:expense]
+    repaid false
     template false
 
     factory :transaction do

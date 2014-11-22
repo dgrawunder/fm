@@ -38,7 +38,8 @@ class ActiveRecordMapper
           :expected,
           :fixed,
           :template,
-          :day_of_month
+          :day_of_month,
+          :repaid
       ]
     end
   end
