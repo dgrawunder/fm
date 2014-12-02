@@ -10,7 +10,7 @@ module FmCli
         end
         row do
           column('CREDIT w. Rec.')
-          column(nil)
+          column(format_currency(balance_report.credit_including_receivables))
           column(format_currency(balance_report.total_expected_credit_including_receivables))
         end
       end

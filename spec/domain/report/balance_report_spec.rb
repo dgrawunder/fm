@@ -56,7 +56,9 @@ describe BalanceReport do
     expect(subject.total_expected_balance).to eq 4405.09
     expect(subject.credit).to eq 7457.99
     expect(subject.total_expected_credit).to eq 7602.57
-    expect(subject.total_expected_credit_including_receivables).to eq 7648.07
+    expect(subject.credit_including_receivables).to eq 7503.49
+    expect(subject.total_expected_credit_including_receivables).to eq 7688.07
+    # expect(subject.total_expected_credit_including_receivables).to eq 7648.07
   end
 
 end
