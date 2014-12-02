@@ -2,10 +2,11 @@ class Transaction < Entity
   include Lift
 
   attr_accessor :id, :accounting_period_id, :category_id, :description, :amount,
-                :expected, :fixed, :template, :type, :date, :day_of_month, :repaid
+                :expected, :fixed, :template, :type, :date, :day_of_month,  :receivable, :repaid
   alias :expected? :expected
   alias :template? :template
   alias :fixed? :fixed
+  alias :receivable? :receivable
   alias :repaid? :repaid
 
   belongs_to :accounting_period

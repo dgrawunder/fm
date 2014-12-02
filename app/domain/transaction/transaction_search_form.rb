@@ -9,6 +9,10 @@ class TransactionSearchForm < Form
   alias expected expected?
   attribute :term
   attribute :sort
+  attribute :receivable, Boolean
+  alias receivable receivable?
+  attribute :repaid, Boolean
+  alias repaid repaid?
 
   def accounting_period_name=(name)
     super(name)

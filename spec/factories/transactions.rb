@@ -7,6 +7,7 @@ FactoryGirl.define do
     date { Forgery(:date).date(past: true, future: false, max_delta: 30) }
     type TransactionType[:expense]
     repaid false
+    receivable false
     template false
 
     factory :transaction do
@@ -25,10 +26,6 @@ FactoryGirl.define do
 
       factory :inpayment do
         type TransactionType[:inpayment]
-      end
-
-      factory :receivable do
-        type TransactionType[:receivable]
       end
     end
 

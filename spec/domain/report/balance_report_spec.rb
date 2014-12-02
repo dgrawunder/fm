@@ -29,12 +29,14 @@ describe BalanceReport do
     create(:outpayment, accounting_period_id: accounting_period.id, amount: 15.50, expected: true)
     create(:outpayment, accounting_period_id: accounting_period.id + 1)
     create(:outpayment, template: true)
-    create(:receivable, accounting_period_id: accounting_period.id, amount: 20)
-    create(:receivable, accounting_period_id: accounting_period.id, amount: 25.50)
-    create(:receivable, accounting_period_id: accounting_period.id, amount: 30, expected: true)
-    create(:receivable, accounting_period_id: accounting_period.id, amount: 10, expected: true)
-    create(:receivable, amount: 25)
-    create(:receivable, template: true)
+    create(:outpayment, receivable: true, repaid: false, accounting_period_id: accounting_period.id, amount: 20)
+    create(:outpayment, receivable: true, repaid: false, accounting_period_id: accounting_period.id, amount: 26.50)
+    create(:outpayment, receivable: true, repaid: true, accounting_period_id: accounting_period.id, amount: 13)
+    create(:outpayment, receivable: true, repaid: false, accounting_period_id: accounting_period.id, amount: 30, expected: true)
+    create(:outpayment, receivable: true, repaid: false, accounting_period_id: accounting_period.id, amount: 10, expected: true)
+    create(:outpayment, receivable: true, repaid: true, accounting_period_id: accounting_period.id, amount: 11, expected: true)
+    create(:outpayment, receivable: true, repaid: false, amount: 25)
+    create(:outpayment, receivable: true, repaid: false, template: true)
   end
 
   subject { BalanceReport.new(accounting_period) }
@@ -48,16 +50,16 @@ describe BalanceReport do
     expect(subject.total_expected_expenses).to eq 878.36
     expect(subject.inpayments).to eq 275.25
     expect(subject.total_expected_inpayments).to eq 425.25
-    expect(subject.outpayments).to eq 1100.33
-    expect(subject.total_expected_outpayments).to eq 1145.83
-    expect(subject.receivables).to eq 45.50
-    expect(subject.total_expected_receivables).to eq 85.50
+    expect(subject.outpayments).to eq 1159.83
+    expect(subject.total_expected_outpayments).to eq 1256.33
+    expect(subject.open_receivables).to eq 46.50
+    expect(subject.total_expected_open_receivables).to eq 86.50
     expect(subject.balance).to eq 4325.01
     expect(subject.total_expected_balance).to eq 4405.09
-    expect(subject.credit).to eq 7457.99
-    expect(subject.total_expected_credit).to eq 7602.57
-    expect(subject.credit_including_receivables).to eq 7503.49
-    expect(subject.total_expected_credit_including_receivables).to eq 7688.07
+    expect(subject.credit).to eq 7443.99
+    expect(subject.total_expected_credit).to eq 7577.57
+    expect(subject.credit_including_open_receivables).to eq 7490.49
+    expect(subject.total_expected_credit_including_total_expected_open_receivables).to eq 7664.07
   end
 
 end

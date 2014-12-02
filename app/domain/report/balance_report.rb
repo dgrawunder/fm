@@ -33,6 +33,14 @@ class BalanceReport
 
   public
 
+  def open_receivables
+    get_open_receivables_sums.actual_sum
+  end
+
+  def total_expected_open_receivables
+    get_open_receivables_sums.total_expected_sum
+  end
+
   def balance
     @balance ||= (incomes - expenses)
   end
@@ -43,33 +51,41 @@ class BalanceReport
 
   def credit
     @credit ||= begin
-      accounting_period.initial_deposit + incomes + inpayments - expenses - outpayments - receivables
+      accounting_period.initial_deposit + incomes + inpayments - expenses - outpayments
     end
   end
 
   def total_expected_credit
     @total_expected_credit ||= begin
       accounting_period.initial_deposit + total_expected_incomes + total_expected_inpayments -
-          total_expected_expenses - total_expected_outpayments - total_expected_receivables
+          total_expected_expenses - total_expected_outpayments
     end
   end
 
-  def credit_including_receivables
-    @credit_including_receivables ||= begin
-      credit + receivables
+  def credit_including_open_receivables
+    @credit_including_open_receivables ||= begin
+      credit + open_receivables
     end
   end
 
-  def total_expected_credit_including_receivables
+  def total_expected_credit_including_total_expected_open_receivables
     @total_expected_credit_including_receivables ||= begin
-      total_expected_credit + total_expected_receivables
+      total_expected_credit + total_expected_open_receivables
     end
   end
 
   private
 
+  def get_open_receivables_sums
+    @open_receivable_sums ||= begin
+      transactions = TransactionRepository.receivables(accounting_period_id: accounting_period.id, only_open: true)
+      TransactionSums.create(transactions)
+    end
+  end
+
   def get_transaction_sums(type_name)
-    transactions = TransactionRepository.public_send("#{type_name.to_s.pluralize}_by_accounting_period_id", accounting_period.id)
+    transactions = TransactionRepository.public_send("#{type_name.to_s.pluralize}_by_accounting_period_id",
+                                                     accounting_period.id)
     TransactionSums.create(transactions)
   end
 end

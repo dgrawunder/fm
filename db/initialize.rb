@@ -39,7 +39,8 @@ class ActiveRecordMapper
           :fixed,
           :template,
           :day_of_month,
-          :repaid
+          :repaid,
+          :receivable
       ]
     end
   end

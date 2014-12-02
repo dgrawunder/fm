@@ -14,18 +14,29 @@ class TransactionRepository
       build_entities record_class.where(template: true)
     end
 
+    def receivables(accounting_period_id: nil, only_open: false)
+      criteria = TransactionSearchForm.new(
+          receivable: true, template: false, accounting_period_id: accounting_period_id)
+      criteria.repaid = false if only_open
+      search(criteria)
+    end
+
     def search(criteria, include: [])
       includes = Array(include)
       query = record_class.all
       query = query.where(accounting_period_id: criteria.accounting_period_id) if criteria.accounting_period_id.present?
       query = query.where(type: criteria.type) if criteria.type.present?
       unless criteria.template.nil?
-        query = query.where(template: criteria.template?) if criteria.template?
-        query = query.where(template: [criteria.template?, nil]) unless criteria.template?
+        query = query.where(template: criteria.template? ? true : [false, nil])
       end
       unless criteria.expected.nil?
-        query = query.where(expected: criteria.expected?) if criteria.expected?
-        query = query.where(expected: [criteria.expected?, nil]) unless criteria.expected?
+        query = query.where(expected: criteria.expected? ? true : [false, nil])
+      end
+      unless criteria.receivable.nil?
+        query = query.where(receivable: criteria.receivable? ? true : [false, nil])
+      end
+      unless criteria.repaid.nil?
+        query = query.where(repaid: criteria.repaid? ? true : [false, nil])
       end
       if criteria.term.present?
         query = query.

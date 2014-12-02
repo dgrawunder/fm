@@ -20,7 +20,7 @@ describe TransactionType do
       expect(subject.find_number('e')).to eq TransactionType[:expense]
       expect(subject.find_number('expe')).to eq TransactionType[:expense]
       expect(subject.find_number('inp')).to eq TransactionType[:inpayment]
-      expect(subject.find_number('receivable')).to eq TransactionType[:receivable]
+      expect(subject.find_number('outpayment')).to eq TransactionType[:outpayment]
     end
 
     it 'should return nil when no match found' do

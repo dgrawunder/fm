@@ -9,14 +9,11 @@ describe TransactionRepository do
     income = create(:income, accounting_period_id: 5)
     inpayment = create(:inpayment, accounting_period_id: 5)
     outpayment = create(:outpayment, accounting_period_id: 5)
-    receivable = create(:receivable, accounting_period_id: 5)
-    create(:receivable)
 
     expect(subject.expenses_by_accounting_period_id(5)).to eq [expense_1, expense_2]
     expect(subject.incomes_by_accounting_period_id(5)).to eq [income]
     expect(subject.inpayments_by_accounting_period_id(5)).to eq [inpayment]
     expect(subject.outpayments_by_accounting_period_id(5)).to eq [outpayment]
-    expect(subject.receivables_by_accounting_period_id(5)).to eq [receivable]
   end
 
   describe '::templates' do
@@ -30,12 +27,65 @@ describe TransactionRepository do
     end
   end
 
+  describe '::receivables' do
+
+    context 'if accounting_period_id given' do
+
+      it 'should return all receivables with accounting_period_id' do
+        receivable_1 = create(:transaction, receivable: true, repaid: true, accounting_period_id: 1)
+        receivable_2 = create(:transaction, receivable: true, repaid: false, accounting_period_id: 1)
+        create(:transaction, receivable: true, accounting_period_id: 2)
+        create(:transaction, receivable: false, accounting_period_id: 1)
+
+        expect(subject.receivables(accounting_period_id: 1)).to eq [receivable_1, receivable_2]
+      end
+    end
+
+    context 'if only_open is true' do
+
+      it 'should return all receivables not being repaid' do
+        receivable_1 = create(:transaction, receivable: true, repaid: false, accounting_period_id: 1)
+        create(:transaction, receivable: true, repaid: true, accounting_period_id: 2)
+        receivable_2 = create(:transaction, receivable: true, repaid: false, accounting_period_id: 2)
+        create(:transaction, receivable: false, accounting_period_id: 1)
+
+        expect(subject.receivables(only_open: true)).to eq [receivable_1, receivable_2]
+      end
+    end
+
+    context 'if accounting_period_id is given and only_open is true' do
+
+      it 'should return all receivables with accounting_period_id not being repaid' do
+        receivable_1 = create(:transaction, receivable: true, repaid: false, accounting_period_id: 1)
+        create(:transaction, receivable: true, repaid: true, accounting_period_id: 1)
+        create(:transaction, receivable: true, repaid: false, accounting_period_id: 2)
+        create(:transaction, receivable: false, accounting_period_id: 1)
+
+        expect(subject.receivables(accounting_period_id: 1, only_open: true)).to eq [receivable_1]
+      end
+    end
+
+    context 'if accounting_period_id and only_open is not given' do
+
+      it 'should return all receivables' do
+        receivable_1 = create(:transaction, receivable: true, repaid: true, accounting_period_id: 1)
+        receivable_2 = create(:transaction, receivable: true, repaid: false, accounting_period_id: 1)
+        receivable_3 = create(:transaction, receivable: true, repaid: true, accounting_period_id: 2)
+        create(:transaction, receivable: false, accounting_period_id: 1)
+        create(:transaction, receivable: true, template: true)
+
+        expect(subject.receivables).to(
+            eq [receivable_1, receivable_2, receivable_3])
+      end
+    end
+  end
+
   describe '::search' do
 
     it 'should return all Transaction if empty criteria given' do
       create(:expense)
       create(:income)
-      create(:receivable)
+      create(:outpayment)
       criteria = TransactionSearchForm.new
       expect(subject.search(criteria).count).to eq 3
     end
@@ -116,6 +166,60 @@ describe TransactionRepository do
           create(:expense, expected: true)
 
           criteria = TransactionSearchForm.new(expected: false)
+          expect(subject.search(criteria)).to eq [transaction_1, transaction_2]
+        end
+      end
+    end
+
+    context 'if receivable present' do
+
+      context 'if receivable is true' do
+
+        it 'should return only receivable transactions' do
+          transaction_1 = create(:outpayment, receivable: true)
+          transaction_2 = create(:outpayment, receivable: true)
+          create(:outpayment, receivable: false)
+
+          criteria = TransactionSearchForm.new(receivable: true)
+          expect(subject.search(criteria)).to eq [transaction_1, transaction_2]
+        end
+      end
+
+      context 'if receivable is false' do
+
+        it 'should return all transaction where receivable is nil or false' do
+          transaction_1 = create(:expense, receivable: false)
+          transaction_2 = create(:expense, receivable: nil)
+          create(:expense, receivable: true)
+
+          criteria = TransactionSearchForm.new(receivable: false)
+          expect(subject.search(criteria)).to eq [transaction_1, transaction_2]
+        end
+      end
+    end
+
+    context 'if repaid present' do
+
+      context 'if repaid is true' do
+
+        it 'should return only receivable transactions' do
+          transaction_1 = create(:outpayment, repaid: true)
+          transaction_2 = create(:outpayment, repaid: true)
+          create(:outpayment, repaid: false)
+
+          criteria = TransactionSearchForm.new(repaid: true)
+          expect(subject.search(criteria)).to eq [transaction_1, transaction_2]
+        end
+      end
+
+      context 'if repaid is false' do
+
+        it 'should return all transaction where repaid is nil or false' do
+          transaction_1 = create(:expense, repaid: false)
+          transaction_2 = create(:expense, repaid: nil)
+          create(:expense, repaid: true)
+
+          criteria = TransactionSearchForm.new(repaid: false)
           expect(subject.search(criteria)).to eq [transaction_1, transaction_2]
         end
       end

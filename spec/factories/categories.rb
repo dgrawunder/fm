@@ -18,9 +18,5 @@ FactoryGirl.define do
     factory :outpayment_category do
       transaction_type TransactionType[:outpayment]
     end
-
-    factory :receivable_category do
-      transaction_type TransactionType[:receivable]
-    end
   end
 end

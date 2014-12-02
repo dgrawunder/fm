@@ -12,9 +12,7 @@ describe GetCategoryReport do
         create(:expense_category, name: 'Category 3'),
         create(:expense_category, name: 'Category 1'),
         create(:expense_category, name: 'Category 2'),
-        create(:income_category),
-        create(:receivable_category, name: 'Category 5'),
-        create(:receivable_category, name: 'Category 6')
+        create(:income_category)
     ]
   end
 
@@ -28,11 +26,7 @@ describe GetCategoryReport do
         create(:expense, accounting_period_id: accounting_periods.second.id, category_id: categories.third.id, amount: 78),
         create(:expense, category_id: categories.first.id, amount: 37.50, template: true),
         create(:expense, accounting_period_id: accounting_periods.first.id, category_id: categories.second.id, amount: 55),
-        create(:income, accounting_period_id: accounting_periods.second.id, category_id: categories.fifth.id, amount: 300),
-        create(:receivable, accounting_period_id: accounting_periods.second.id, category_id: categories[4].id, amount: 56.80),
-        create(:receivable, accounting_period_id: accounting_periods.second.id, category_id: categories[4].id, amount: 87.90),
-        create(:receivable, accounting_period_id: accounting_periods.second.id, category_id: categories[5].id, amount: 87),
-        create(:receivable,  category_id: categories[5].id, template: true)
+        create(:income, accounting_period_id: accounting_periods.second.id, category_id: categories.third.id, amount: 300),
     ]
   end
 
@@ -80,20 +74,12 @@ describe GetCategoryReport do
       expect(actual_category_sums.last.actual_sum).to eq BigDecimal.new('26.20')
     end
 
-    it 'should throw UnknownTransactionTypeError if given TransactionType name part is invalid' do
-      subject = GetCategoryReport.new('foo')
-      expect { subject.run }.to raise_error UnknownTransactionTypeError
-    end
+    context 'password_confirmation' do
 
-    it 'should return all Receivables if requested' do
-      subject = GetCategoryReport.new('rec')
-
-      actual_category_sums = subject.run
-      expect(actual_category_sums.count).to eq 2
-      expect(actual_category_sums.first.category).to eq categories[4]
-      expect(actual_category_sums.first.actual_sum).to eq BigDecimal.new('144.7')
-      expect(actual_category_sums.second.category).to eq categories[5]
-      expect(actual_category_sums.second.actual_sum).to eq BigDecimal.new('87.0')
+      it 'should throw UnknownTransactionTypeError' do
+        subject = GetCategoryReport.new('foo')
+        expect { subject.run }.to raise_error UnknownTransactionTypeError
+      end
     end
   end
 
