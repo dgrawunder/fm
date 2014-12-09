@@ -3,5 +3,6 @@ bin
 
 database.yml
 log/*.log
+seeds/*
 tmp/*
 *.db
