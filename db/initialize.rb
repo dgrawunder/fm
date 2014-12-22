@@ -3,7 +3,7 @@ unless Fm.env == 'test'
 end
 ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: "#{__dir__}/#{Fm.env}.db")
 
-class ActiveRecordMapper
+module ActiveRecordMapper
   class AccountingPeriod < ActiveRecord::Base
 
     has_many :transactions, dependent: :destroy
