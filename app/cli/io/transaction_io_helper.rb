@@ -4,6 +4,7 @@ module FmCli
     def print_transaction(transaction)
       print 'FIXED '.yellow if transaction.fixed?
       print 'TEMPLATE'.yellow if transaction.template?
+      print "#{'REPAID '.yellow if transaction.repaid?}#{'RECEIVABLE'.yellow if transaction.receivable?}"
       table do
         row do
           column('ID', :width => 20)
@@ -61,7 +62,7 @@ module FmCli
           if display_type
             column('', width: 3, color: table_header_fg_color)
           end
-          column('', width: 1)
+          column('', width: 4)
         end
         transactions.each do |transaction|
           row do
@@ -78,7 +79,7 @@ module FmCli
               column(TransactionType.find_name(transaction.type)[0..2].capitalize,
                      color: transaction_type_color(transaction.type))
             end
-            column(transaction.fixed? ? 'F' : '', color: :yellow)
+            column("#{transaction.fixed? ? 'F' : ''}#{transaction.receivable? ? 'Rec' : ''}", color: :yellow)
           end
         end
       end
